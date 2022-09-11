@@ -3,6 +3,7 @@ import { Grid, Typography, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../SocketContext";
+import VideoControls from "./VideoControls";
 
 const useStyles = makeStyles((theme) => ({
   video: {
@@ -31,7 +32,7 @@ const VideoPlayer = () => {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.gridContainer}>
+    <Grid container className={classes.gridContainer}>
       {stream && (
         <Paper className={classes.paper}>
           <Grid item xs={12} md={6}>
@@ -46,6 +47,7 @@ const VideoPlayer = () => {
               className={classes.video}
             />
           </Grid>
+          <VideoControls />
         </Paper>
       )}
       {callAccepted && !callEnded && (
