@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
-import { Grid, Typography, Paper } from "@material-ui/core";
+import React, { useContext, useState } from "react";
+import { Grid, Typography, Paper, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../SocketContext";
 import VideoControls from "./VideoControls";
+import { VolumeOff, VolumeUp } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   video: {
@@ -30,6 +31,8 @@ const VideoPlayer = () => {
     useContext(SocketContext);
 
   const classes = useStyles();
+
+  const [isCallerMuted, setIsCallerMuted] = useState(false);
 
   return (
     <Grid container className={classes.gridContainer}>
@@ -58,10 +61,23 @@ const VideoPlayer = () => {
             </Typography>
             <video
               playsInline
-              muted
+              muted={isCallerMuted}
               ref={userVideo}
               autoPlay
               className={classes.video}
+            />
+          </Grid>
+          <Grid
+            container
+            style={{ justifyContent: "center", alignItems: "center" }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={isCallerMuted ? <VolumeUp /> : <VolumeOff />}
+              onClick={() =>
+                setIsCallerMuted((isCallerMuted) => !isCallerMuted)
+              }
             />
           </Grid>
         </Paper>
