@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Grid, Button } from "@material-ui/core";
-import { VolumeUp, VolumeOff, Videocam, VideocamOff } from "@material-ui/icons";
+import { Videocam, VideocamOff, Mic, MicOff } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../SocketContext";
@@ -35,14 +35,14 @@ const VideoControls = () => {
           <Button
             variant="contained"
             color="primary"
-            startIcon={<VolumeOff />}
+            startIcon={<MicOff />}
             onClick={handleAudio}
           />
         ) : (
           <Button
             variant="contained"
             color="primary"
-            startIcon={<VolumeUp />}
+            startIcon={<Mic />}
             onClick={handleAudio}
           />
         ))}
