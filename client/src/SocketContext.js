@@ -65,6 +65,11 @@ const ContextProvider = ({ children }) => {
     connectionRef.current = stream;
   };
 
+  const declineCall = () => {
+    socket.emit("declinecall", { to: call.from });
+    setCall({});
+  };
+
   const callUser = (id) => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
@@ -109,6 +114,7 @@ const ContextProvider = ({ children }) => {
         me,
         callUser,
         answerCall,
+        declineCall,
         leaveCall,
         isAudio,
         setIsAudio,

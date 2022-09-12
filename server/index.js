@@ -28,6 +28,10 @@ io.on("connection", (socket) => {
   socket.on("answercall", (data) => {
     io.to(data.to).emit("callaccepted", data.signal);
   });
+
+  socket.on("declinecall", (data) => {
+    io.to(data.to).emit("declinecall");
+  });
 });
 
 server.listen(port, function () {
