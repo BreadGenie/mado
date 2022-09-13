@@ -41,17 +41,17 @@ const VideoControls = () => {
             color="primary"
             onClick={handleVideo}
           >
-            <VideocamOff />
+            <Videocam />
           </IconButton>
         ) : (
           <IconButton
             sx={{ marginRight: "5px" }}
             aria-label="Turn video camera oon"
             variant="solid"
-            color="primary"
+            color="danger"
             onClick={handleVideo}
           >
-            <Videocam />
+            <VideocamOff />
           </IconButton>
         ))}
       {stream &&
@@ -63,17 +63,17 @@ const VideoControls = () => {
             color="primary"
             onClick={handleAudio}
           >
-            <MicOff />
+            <Mic />
           </IconButton>
         ) : (
           <IconButton
             sx={{ marginLeft: "5px" }}
             aria-label="Turn mic on"
             variant="solid"
-            color="primary"
+            color="danger"
             onClick={handleAudio}
           >
-            <Mic />
+            <MicOff />
           </IconButton>
         ))}
     </Grid>
