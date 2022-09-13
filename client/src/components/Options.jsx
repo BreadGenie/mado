@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, TextField, Container, Paper } from "@material-ui/core";
-import { Button, Typography } from "@mui/joy";
+import { Grid, Container, Paper } from "@material-ui/core";
+import { Button, TextField, Typography } from "@mui/joy";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Assignment, Phone, PhoneDisabled } from "@material-ui/icons";
 
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   margin: {
-    marginTop: 20,
+    marginBottom: "20px",
   },
   padding: {
     padding: 20,
@@ -55,7 +55,9 @@ const Options = ({ children }) => {
                 Account Info
               </Typography>
               <TextField
-                label="name"
+                className={classes.margin}
+                variant="soft"
+                placeholder="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 fullWidth
@@ -77,7 +79,9 @@ const Options = ({ children }) => {
                 Make a Call
               </Typography>
               <TextField
-                label="ID to call"
+                className={classes.margin}
+                variant="soft"
+                placeholder="ID to call"
                 value={idToCall}
                 onChange={(e) => setIdToCall(e.target.value)}
                 fullWidth
