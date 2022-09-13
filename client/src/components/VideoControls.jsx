@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   gridContainer: {
     justifyContent: "center",
     alignItems: "center",
+    padding: "10px",
   },
 }));
 
@@ -34,6 +35,7 @@ const VideoControls = () => {
       {stream &&
         (isVideo ? (
           <IconButton
+            sx={{ marginRight: "5px" }}
             aria-label="Turn video camera off"
             variant="solid"
             color="primary"
@@ -43,6 +45,7 @@ const VideoControls = () => {
           </IconButton>
         ) : (
           <IconButton
+            sx={{ marginRight: "5px" }}
             aria-label="Turn video camera oon"
             variant="solid"
             color="primary"
@@ -54,6 +57,7 @@ const VideoControls = () => {
       {stream &&
         (isAudio ? (
           <IconButton
+            sx={{ marginLeft: "5px" }}
             aria-label="Turn mic off"
             variant="solid"
             color="primary"
@@ -63,6 +67,7 @@ const VideoControls = () => {
           </IconButton>
         ) : (
           <IconButton
+            sx={{ marginLeft: "5px" }}
             aria-label="Turn mic on"
             variant="solid"
             color="primary"
