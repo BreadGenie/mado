@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   gridContainer: {
     justifyContent: "center",
+    alignContent: "center",
     [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
     },
