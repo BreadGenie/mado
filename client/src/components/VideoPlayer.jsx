@@ -75,14 +75,15 @@ const VideoPlayer = () => {
             style={{ justifyContent: "center", alignItems: "center" }}
           >
             <IconButton
+              sx={{ margin: "10px" }}
               aria-label="Mute Call"
               variant="solid"
-              color="primary"
+              color={isCallerMuted ? "danger" : "primary"}
               onClick={() =>
                 setIsCallerMuted((isCallerMuted) => !isCallerMuted)
               }
             >
-              {isCallerMuted ? <VolumeUp /> : <VolumeOff />}
+              {isCallerMuted ? <VolumeOff /> : <VolumeUp />}
             </IconButton>
           </Grid>
         </Paper>
