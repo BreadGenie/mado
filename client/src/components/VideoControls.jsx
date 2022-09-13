@@ -31,22 +31,6 @@ const VideoControls = () => {
   return (
     <Grid container className={classes.gridContainer}>
       {stream &&
-        (isAudio ? (
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<MicOff />}
-            onClick={handleAudio}
-          />
-        ) : (
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<Mic />}
-            onClick={handleAudio}
-          />
-        ))}
-      {stream &&
         (isVideo ? (
           <Button
             variant="contained"
@@ -60,6 +44,22 @@ const VideoControls = () => {
             color="primary"
             startIcon={<Videocam />}
             onClick={handleVideo}
+          />
+        ))}
+      {stream &&
+        (isAudio ? (
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<MicOff />}
+            onClick={handleAudio}
+          />
+        ) : (
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<Mic />}
+            onClick={handleAudio}
           />
         ))}
     </Grid>
