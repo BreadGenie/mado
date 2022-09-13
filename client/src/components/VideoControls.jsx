@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Grid, Button } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+import { IconButton } from "@mui/joy";
 import { Videocam, VideocamOff, Mic, MicOff } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -32,35 +33,43 @@ const VideoControls = () => {
     <Grid container className={classes.gridContainer}>
       {stream &&
         (isVideo ? (
-          <Button
-            variant="contained"
+          <IconButton
+            aria-label="Turn video camera off"
+            variant="solid"
             color="primary"
-            startIcon={<VideocamOff />}
             onClick={handleVideo}
-          />
+          >
+            <VideocamOff />
+          </IconButton>
         ) : (
-          <Button
-            variant="contained"
+          <IconButton
+            aria-label="Turn video camera oon"
+            variant="solid"
             color="primary"
-            startIcon={<Videocam />}
             onClick={handleVideo}
-          />
+          >
+            <Videocam />
+          </IconButton>
         ))}
       {stream &&
         (isAudio ? (
-          <Button
-            variant="contained"
+          <IconButton
+            aria-label="Turn mic off"
+            variant="solid"
             color="primary"
-            startIcon={<MicOff />}
             onClick={handleAudio}
-          />
+          >
+            <MicOff />
+          </IconButton>
         ) : (
-          <Button
-            variant="contained"
+          <IconButton
+            aria-label="Turn mic on"
+            variant="solid"
             color="primary"
-            startIcon={<Mic />}
             onClick={handleAudio}
-          />
+          >
+            <Mic />
+          </IconButton>
         ))}
     </Grid>
   );

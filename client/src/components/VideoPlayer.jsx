@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Grid, Typography, Paper, Button } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
+import { IconButton, Typography } from "@mui/joy";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../SocketContext";
@@ -40,7 +41,7 @@ const VideoPlayer = () => {
       {stream && (
         <Paper className={classes.paper}>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>
+            <Typography level="h5" gutterBottom>
               {name || "Name"}
             </Typography>
             <video
@@ -57,7 +58,7 @@ const VideoPlayer = () => {
       {callAccepted && !callEnded && (
         <Paper className={classes.paper}>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>
+            <Typography level="h5" gutterBottom>
               {call.name || "Name"}
             </Typography>
             <video
@@ -72,14 +73,16 @@ const VideoPlayer = () => {
             container
             style={{ justifyContent: "center", alignItems: "center" }}
           >
-            <Button
-              variant="contained"
+            <IconButton
+              aria-label="Mute Call"
+              variant="solid"
               color="primary"
-              startIcon={isCallerMuted ? <VolumeUp /> : <VolumeOff />}
               onClick={() =>
                 setIsCallerMuted((isCallerMuted) => !isCallerMuted)
               }
-            />
+            >
+              {isCallerMuted ? <VolumeUp /> : <VolumeOff />}
+            </IconButton>
           </Grid>
         </Paper>
       )}
