@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { Modal, Box } from "@material-ui/core";
-import { IconButton } from "@mui/joy";
+import { Modal } from "@material-ui/core";
+import { IconButton, Box } from "@mui/joy";
 import { Call, CallEnd } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     flexDirection: "column",
   },
-  buttonContainer: {
-    padding: "10px",
-  },
 }));
 
 const Notifications = () => {
@@ -44,7 +41,7 @@ const Notifications = () => {
         >
           <Box className={classes.box}>
             <h1>{call.name} is calling</h1>
-            <Box className={classes.buttonContainer}>
+            <Box sx={{ padding: "10px" }}>
               <IconButton
                 style={{ margin: 10 }}
                 variant="solid"
