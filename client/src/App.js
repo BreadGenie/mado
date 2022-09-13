@@ -8,6 +8,8 @@ import Notifications from "./components/Notifications";
 import Options from "./components/Options";
 import VideoPlayer from "./components/VideoPlayer";
 
+import madoTheme from "./madoTheme";
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     paddingTop: "5px",
@@ -39,7 +41,7 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <CssVarsProvider>
+    <CssVarsProvider theme={madoTheme}>
       <div className={classes.wrapper}>
         <AppBar className={classes.appBar} position="static" color="inherit">
           <Typography level="h2" align="center">
