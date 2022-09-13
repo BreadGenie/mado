@@ -1,6 +1,8 @@
 import React from "react";
-import { AppBar, Typography } from "@material-ui/core";
+import { AppBar } from "@material-ui/core";
+import { Typography } from "@mui/joy";
 import { makeStyles } from "@material-ui/core/styles";
+import { CssVarsProvider } from "@mui/joy/styles";
 
 import Notifications from "./components/Notifications";
 import Options from "./components/Options";
@@ -8,6 +10,7 @@ import VideoPlayer from "./components/VideoPlayer";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
+    paddingTop: "5px",
     borderRadius: 15,
     margin: "30px 100px",
     display: "flex",
@@ -36,17 +39,19 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.wrapper}>
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography variant="h2" align="center">
-          Mado (窓)
-        </Typography>
-      </AppBar>
-      <VideoPlayer />
-      <Options>
-        <Notifications />
-      </Options>
-    </div>
+    <CssVarsProvider>
+      <div className={classes.wrapper}>
+        <AppBar className={classes.appBar} position="static" color="inherit">
+          <Typography level="h2" align="center">
+            Mado (窓)
+          </Typography>
+        </AppBar>
+        <VideoPlayer />
+        <Options>
+          <Notifications />
+        </Options>
+      </div>
+    </CssVarsProvider>
   );
 };
 

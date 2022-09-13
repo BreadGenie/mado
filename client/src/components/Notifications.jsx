@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Button, Modal, Box } from "@material-ui/core";
+import { Modal, Box } from "@material-ui/core";
+import { IconButton } from "@mui/joy";
 import { Call, CallEnd } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -43,20 +44,22 @@ const Notifications = () => {
           <Box className={classes.box}>
             <h1>{call.name} is calling</h1>
             <Box className={classes.buttonContainer}>
-              <Button
+              <IconButton
                 style={{ margin: 10 }}
-                variant="contained"
+                variant="solid"
                 color="primary"
                 onClick={answerCall}
-                startIcon={<Call />}
-              />
-              <Button
+              >
+                <Call />
+              </IconButton>
+              <IconButton
                 style={{ margin: 10 }}
-                variant="contained"
-                color="secondary"
+                variant="solid"
+                color="danger"
                 onClick={declineCall}
-                startIcon={<CallEnd />}
-              />
+              >
+                <CallEnd />
+              </IconButton>
             </Box>
           </Box>
         </Modal>
