@@ -45,6 +45,8 @@ const ContextProvider = ({ children }) => {
         signal: signal,
       })
     );
+
+    socket.on("callended", () => window.location.reload());
   }, []);
 
   const answerCall = () => {
@@ -101,7 +103,7 @@ const ContextProvider = ({ children }) => {
 
   const leaveCall = () => {
     setCallEnded(true);
-
+    socket.emit("callended", { to: call.from });
     window.location.reload();
   };
 

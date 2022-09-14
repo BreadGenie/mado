@@ -32,6 +32,10 @@ io.on("connection", (socket) => {
   socket.on("declinecall", (data) => {
     io.to(data.to).emit("declinecall");
   });
+
+  socket.on("callended", (data) => {
+    io.to(data.to).emit("callended");
+  });
 });
 
 server.listen(port, function () {
