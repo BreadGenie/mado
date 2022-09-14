@@ -44,8 +44,13 @@ const App = () => {
     <CssVarsProvider theme={madoTheme}>
       <div className={classes.wrapper}>
         <AppBar className={classes.appBar} position="static" color="inherit">
-          <Typography level="h2" align="center">
-            Mado (窓)
+          <Typography
+            startDecorator="窓"
+            fontFamily="Sans Serif"
+            level="h2"
+            align="center"
+          >
+            Mado
           </Typography>
         </AppBar>
         <VideoPlayer />
