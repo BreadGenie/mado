@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { useSocketContext } from "../utils";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   gridContainer: {
     justifyContent: "center",
     alignItems: "center",
@@ -20,12 +20,12 @@ const VideoControls = (): JSX.Element => {
   const { stream, isAudio, setIsAudio, isVideo, setIsVideo, mediaStream } =
     useSocketContext();
 
-  const handleAudio = () => {
+  const handleAudio = (): void => {
     mediaStream.current!.getAudioTracks()[0].enabled = !isAudio;
     setIsAudio((prevAudio) => !prevAudio);
   };
 
-  const handleVideo = () => {
+  const handleVideo = (): void => {
     mediaStream.current!.getVideoTracks()[0].enabled = !isVideo;
     setIsVideo((prevVideo) => !prevVideo);
   };

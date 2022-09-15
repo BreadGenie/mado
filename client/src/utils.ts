@@ -4,7 +4,7 @@ import { Context } from "./types";
 
 const useSocketContext = (): Context => {
   const context = useContext(SocketContext);
-  if (!context) {
+  if (context == null) {
     throw new Error(
       `useSocketContext must be used within SocketContextProvider`
     );

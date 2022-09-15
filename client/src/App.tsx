@@ -37,18 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = () : JSX.Element => {
+const App = (): JSX.Element => {
   const classes = useStyles();
 
   return (
     <CssVarsProvider theme={madoTheme}>
       <div className={classes.wrapper}>
         <AppBar className={classes.appBar} position="static" color="inherit">
-          <Typography
-            startDecorator="窓"
-            fontFamily="Sans Serif"
-            level="h2"
-          >
+          <Typography startDecorator="窓" fontFamily="Sans Serif" level="h2">
             Mado
           </Typography>
         </AppBar>

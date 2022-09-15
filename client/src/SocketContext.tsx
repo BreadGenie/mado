@@ -5,9 +5,13 @@ import { Context, Call } from "./types";
 
 const SocketContext = createContext<Context | null>(null);
 
-const socket = io(process.env.REACT_APP_SERVER_URL || "http://localhost:5000/");
+const socket = io(process.env.REACT_APP_SERVER_URL ?? "http://localhost:5000/");
 
-const ContextProvider = ({ children }: { children: React.ReactNode }) => {
+const ContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element => {
   const [stream, setStream] = useState<MediaStream>();
   const [me, setMe] = useState("");
   const [call, setCall] = useState<Call>({
@@ -46,16 +50,16 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
     socket.on("calluser", ({ from, name: callerName, signal }) =>
       setCall({
         isRecievedCall: true,
-        from: from,
+        from,
         name: callerName,
-        signal: signal,
+        signal,
       })
     );
 
     socket.on("callended", () => window.location.reload());
   }, []);
 
-  const answerCall = () => {
+  const answerCall = (): void => {
     setCallAccepted(true);
 
     const peer = new Peer({ initiator: false, trickle: false, stream });
@@ -77,12 +81,12 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
     connectionRef.current = stream;
   };
 
-  const declineCall = () => {
+  const declineCall = (): void => {
     socket.emit("declinecall", { to: call.from });
     setCall({ isRecievedCall: false, from: "", name: "", signal: "" });
   };
 
-  const callUser = (id: string) => {
+  const callUser = (id: string): void => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
     peer.on("signal", (data) => {
@@ -107,7 +111,7 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
     connectionRef.current = peer;
   };
 
-  const leaveCall = () => {
+  const leaveCall = (): void => {
     setCallEnded(true);
     socket.emit("callended", { to: call.from });
     window.location.reload();
