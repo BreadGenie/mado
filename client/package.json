@@ -1,7 +1,7 @@
 {
   "name": "mado-client",
   "version": "0.1.0",
-  "private": true,  
+  "private": true,
   "main": "src/index.tsx",
   "author": "Bread Genie",
   "license": "GPL-3.0",
