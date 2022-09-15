@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Container, Paper } from "@material-ui/core";
 import { Button, TextField, Typography } from "@mui/joy";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Assignment, Phone, PhoneDisabled } from "@material-ui/icons";
 
-import { SocketContext } from "../SocketContext";
+import { useSocketContext } from "../utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Options = ({ children }) => {
+const Options = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const { me, name, callEnded, callAccepted, setName, leaveCall, callUser } =
-    useContext(SocketContext);
+    useSocketContext();
   const [idToCall, setIdToCall] = useState("");
   const classes = useStyles();
 
@@ -62,7 +62,7 @@ const Options = ({ children }) => {
                 onChange={(e) => setName(e.target.value)}
                 fullWidth
               />
-              <CopyToClipboard className={classes.margin} text={me}>
+              <CopyToClipboard text={me}>
                 <Button
                   aria-label="Copy to clipboard"
                   variant="solid"

@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Grid, Paper } from "@material-ui/core";
 import { IconButton, Typography } from "@mui/joy";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { SocketContext } from "../SocketContext";
 import VideoControls from "./VideoControls";
 import { VolumeOff, VolumeUp } from "@material-ui/icons";
+import { useSocketContext } from "../utils";
 
 const useStyles = makeStyles((theme) => ({
   video: {
@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const VideoPlayer = () => {
+const VideoPlayer = (): JSX.Element => {
   const { name, callEnded, myVideo, userVideo, stream, callAccepted, call } =
-    useContext(SocketContext);
+    useSocketContext();
 
   const classes = useStyles();
 

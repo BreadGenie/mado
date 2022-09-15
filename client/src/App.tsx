@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = () => {
+const App = () : JSX.Element => {
   const classes = useStyles();
 
   return (
@@ -48,7 +48,6 @@ const App = () => {
             startDecorator="窓"
             fontFamily="Sans Serif"
             level="h2"
-            align="center"
           >
             Mado
           </Typography>
