@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Grid } from "@material-ui/core";
 import { IconButton } from "@mui/joy";
 import { Videocam, VideocamOff, Mic, MicOff } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { SocketContext } from "../SocketContext";
+import { useSocketContext } from "../utils";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -14,19 +14,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const VideoControls = () => {
+const VideoControls = (): JSX.Element => {
   const classes = useStyles();
 
   const { stream, isAudio, setIsAudio, isVideo, setIsVideo, mediaStream } =
-    useContext(SocketContext);
+    useSocketContext();
 
   const handleAudio = () => {
-    mediaStream.current.getAudioTracks()[0].enabled = !isAudio;
+    mediaStream.current!.getAudioTracks()[0].enabled = !isAudio;
     setIsAudio((prevAudio) => !prevAudio);
   };
 
   const handleVideo = () => {
-    mediaStream.current.getVideoTracks()[0].enabled = !isVideo;
+    mediaStream.current!.getVideoTracks()[0].enabled = !isVideo;
     setIsVideo((prevVideo) => !prevVideo);
   };
 

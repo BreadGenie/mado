@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Modal } from "@material-ui/core";
 import { IconButton, Box } from "@mui/joy";
 import { Call, CallEnd } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { SocketContext } from "../SocketContext";
+import { useSocketContext } from "../utils";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   box: {
-    position: "absolute",
+    position: "absolute" as "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#ffffff99",
     border: "2px solid grey",
     borderRadius: "10px",
-    boxShadow: 24,
+    boxShadow: "24",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -24,11 +24,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Notifications = () => {
+const Notifications = (): JSX.Element => {
   const classes = useStyles();
 
-  const { call, answerCall, callAccepted, declineCall } =
-    useContext(SocketContext);
+  const { call, answerCall, callAccepted, declineCall } = useSocketContext();
 
   return (
     <>
