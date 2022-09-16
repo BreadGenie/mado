@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { CssVarsProvider } from "@mui/joy/styles";
+import { Container } from "@mui/joy";
 
 import Home from "./components/Home";
 import Call from "./components/Call";
@@ -11,9 +12,6 @@ import { useSocketContext } from "./utils";
 import Navbar from "./components/Navbar";
 
 const useStyles = makeStyles(() => ({
-  image: {
-    marginLeft: "15px",
-  },
   wrapper: {
     display: "flex",
     flexDirection: "column",
@@ -30,7 +28,7 @@ const App = (): JSX.Element => {
   return (
     <CssVarsProvider theme={madoTheme}>
       <BrowserRouter>
-        <div className={classes.wrapper}>
+        <Container className={classes.wrapper}>
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -45,7 +43,7 @@ const App = (): JSX.Element => {
               }
             />
           </Routes>
-        </div>
+        </Container>
       </BrowserRouter>
     </CssVarsProvider>
   );

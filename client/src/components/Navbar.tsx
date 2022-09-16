@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar } from "@material-ui/core";
 import { Typography } from "@mui/joy";
@@ -7,17 +8,20 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     paddingTop: "5px",
     borderRadius: 15,
-    margin: "30px 100px",
+    margin: "30px 0",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
-    width: "600px",
     border: "2px solid lightgrey",
+    padding: "10px 50px",
 
     [theme.breakpoints.down("xs")]: {
       width: "90%",
     },
+  },
+  brand: {
+    textDecoration: "none",
   },
 }));
 
@@ -26,9 +30,11 @@ const Navbar = () => {
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
-      <Typography startDecorator="窓" fontFamily="Sans Serif" level="h2">
-        Mado
-      </Typography>
+      <Link className={classes.brand} to="/">
+        <Typography startDecorator="窓" fontFamily="Sans Serif" level="h2">
+          Mado
+        </Typography>
+      </Link>
     </AppBar>
   );
 };
