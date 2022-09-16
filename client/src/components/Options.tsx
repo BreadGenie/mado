@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Container, Paper } from "@material-ui/core";
 import { Button, TextField, Typography } from "@mui/joy";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Assignment, Phone, PhoneDisabled } from "@material-ui/icons";
+import { Assignment, Phone } from "@material-ui/icons";
 
 import { useSocketContext } from "../utils";
 
@@ -40,8 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Options = ({ children }: { children: React.ReactNode }): JSX.Element => {
-  const { me, name, callEnded, callAccepted, setName, leaveCall, callUser } =
-    useSocketContext();
+  const { me, name, callAccepted, setName, callUser } = useSocketContext();
   const [idToCall, setIdToCall] = useState("");
   const classes = useStyles();
 
@@ -86,19 +85,7 @@ const Options = ({ children }: { children: React.ReactNode }): JSX.Element => {
                 onChange={(e) => setIdToCall(e.target.value)}
                 fullWidth
               />
-              {callAccepted && !callEnded ? (
-                <Button
-                  aria-label="Hang Up"
-                  variant="solid"
-                  color="danger"
-                  startIcon={<PhoneDisabled fontSize="large" />}
-                  fullWidth
-                  onClick={leaveCall}
-                  className={classes.margin}
-                >
-                  Hang Up
-                </Button>
-              ) : (
+              {!callAccepted && (
                 <Button
                   aria-label="Call a user"
                   variant="solid"

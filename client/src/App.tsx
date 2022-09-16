@@ -1,14 +1,15 @@
 import React from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { AppBar } from "@material-ui/core";
 import { Typography } from "@mui/joy";
 import { makeStyles } from "@material-ui/core/styles";
 import { CssVarsProvider } from "@mui/joy/styles";
 
-import Notifications from "./components/Notifications";
-import Options from "./components/Options";
-import VideoPlayer from "./components/VideoPlayer";
+import Home from "./components/Home";
+import Call from "./components/Call";
 
 import madoTheme from "./madoTheme";
+import { useSocketContext } from "./utils";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -40,19 +41,32 @@ const useStyles = makeStyles((theme) => ({
 const App = (): JSX.Element => {
   const classes = useStyles();
 
+  const { callEnded, callAccepted } = useSocketContext();
+
   return (
     <CssVarsProvider theme={madoTheme}>
-      <div className={classes.wrapper}>
-        <AppBar className={classes.appBar} position="static" color="inherit">
-          <Typography startDecorator="窓" fontFamily="Sans Serif" level="h2">
-            Mado
-          </Typography>
-        </AppBar>
-        <VideoPlayer />
-        <Options>
-          <Notifications />
-        </Options>
-      </div>
+      <BrowserRouter>
+        <div className={classes.wrapper}>
+          <AppBar className={classes.appBar} position="static" color="inherit">
+            <Typography startDecorator="窓" fontFamily="Sans Serif" level="h2">
+              Mado
+            </Typography>
+          </AppBar>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/join"
+              element={
+                callAccepted && !callEnded ? (
+                  <Call />
+                ) : (
+                  <Navigate replace to="/" />
+                )
+              }
+            />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </CssVarsProvider>
   );
 };

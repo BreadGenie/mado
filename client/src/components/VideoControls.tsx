@@ -1,7 +1,13 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import { IconButton } from "@mui/joy";
-import { Videocam, VideocamOff, Mic, MicOff } from "@material-ui/icons";
+import {
+  Videocam,
+  VideocamOff,
+  Mic,
+  MicOff,
+  PhoneDisabled,
+} from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { useSocketContext } from "../utils";
@@ -17,8 +23,16 @@ const useStyles = makeStyles(() => ({
 const VideoControls = (): JSX.Element => {
   const classes = useStyles();
 
-  const { stream, isAudio, setIsAudio, isVideo, setIsVideo, mediaStream } =
-    useSocketContext();
+  const {
+    stream,
+    isAudio,
+    setIsAudio,
+    isVideo,
+    setIsVideo,
+    mediaStream,
+    leaveCall,
+    callAccepted,
+  } = useSocketContext();
 
   const handleAudio = (): void => {
     mediaStream.current!.getAudioTracks()[0].enabled = !isAudio;
@@ -76,6 +90,17 @@ const VideoControls = (): JSX.Element => {
             <MicOff />
           </IconButton>
         ))}
+      {callAccepted && (
+        <IconButton
+          sx={{ marginLeft: "5px" }}
+          aria-label="Hang Up"
+          variant="solid"
+          color="danger"
+          onClick={leaveCall}
+        >
+          <PhoneDisabled />
+        </IconButton>
+      )}
     </Grid>
   );
 };

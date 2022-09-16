@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Modal } from "@material-ui/core";
 import { IconButton, Box } from "@mui/joy";
 import { Call, CallEnd } from "@material-ui/icons";
@@ -26,8 +27,14 @@ const useStyles = makeStyles(() => ({
 
 const Notifications = (): JSX.Element => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const { call, answerCall, callAccepted, declineCall } = useSocketContext();
+
+  const handleAnswerCall = () => {
+    answerCall();
+    navigate("/join");
+  };
 
   return (
     <>
@@ -45,7 +52,7 @@ const Notifications = (): JSX.Element => {
                 style={{ margin: 10 }}
                 variant="solid"
                 color="primary"
-                onClick={answerCall}
+                onClick={handleAnswerCall}
               >
                 <Call />
               </IconButton>

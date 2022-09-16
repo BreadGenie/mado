@@ -59,6 +59,10 @@ const ContextProvider = ({
     socket.on("callended", () => window.location.reload());
   }, []);
 
+  useEffect(() => {
+    if (callAccepted) myVideo.current!.srcObject = mediaStream.current!;
+  }, [callAccepted]);
+
   const answerCall = (): void => {
     setCallAccepted(true);
 
