@@ -4,21 +4,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppBar } from "@material-ui/core";
 import { Typography } from "@mui/joy";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   appBar: {
     paddingTop: "5px",
     borderRadius: 15,
     margin: "30px 0",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     border: "2px solid lightgrey",
     padding: "10px 50px",
-
-    [theme.breakpoints.down("xs")]: {
-      width: "90%",
-    },
   },
   brand: {
     textDecoration: "none",

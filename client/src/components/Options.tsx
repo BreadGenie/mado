@@ -7,16 +7,14 @@ import { Assignment, Phone } from "@material-ui/icons";
 
 import { useSocketContext } from "../utils";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexDirection: "column",
   },
   gridContainer: {
     width: "100%",
-    [theme.breakpoints.down("xs")]: {
-      flexDirection: "column",
-    },
+    flexDirection: "column",
   },
   margin: {
     marginBottom: "20px",
@@ -25,14 +23,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
   },
   paper: {
-    width: "550px",
     margin: "35px auto",
     padding: "10px 20px",
     border: "2px solid lightgrey",
     borderRadius: "10px",
-    [theme.breakpoints.down("sm")]: {
-      width: "80%",
-    },
   },
 }));
 
@@ -45,7 +39,7 @@ const Options = ({ children }: { children: React.ReactNode }): JSX.Element => {
     <Paper className={classes.paper} elevation={10}>
       <form className={classes.root} noValidate autoComplete="off">
         <Grid className={classes.gridContainer} container>
-          <Grid item xs={12} md={6} className={classes.padding}>
+          <Grid item className={classes.padding}>
             <Typography gutterBottom level="h6">
               Account Info
             </Typography>
@@ -69,7 +63,7 @@ const Options = ({ children }: { children: React.ReactNode }): JSX.Element => {
               </Button>
             </CopyToClipboard>
           </Grid>
-          <Grid item xs={12} md={6} className={classes.padding}>
+          <Grid item className={classes.padding}>
             <Typography gutterBottom level="h6">
               Make a Call
             </Typography>
