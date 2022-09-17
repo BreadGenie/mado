@@ -9,7 +9,6 @@ import Call from "./components/Call";
 
 import madoTheme from "./madoTheme";
 import { useSocketContext } from "./utils";
-import Navbar from "./components/Navbar";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -29,7 +28,6 @@ const App = (): JSX.Element => {
     <CssVarsProvider theme={madoTheme}>
       <BrowserRouter>
         <Container className={classes.wrapper}>
-          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
