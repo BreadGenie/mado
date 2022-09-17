@@ -1,11 +1,11 @@
 import React from "react";
 
-import VideoPlayer from "./VideoPlayer";
+import CallVideoPlayer from "./CallVideoPlayer";
 
 const Call = (): JSX.Element => {
   return (
     <>
-      <VideoPlayer />
+      <CallVideoPlayer />
     </>
   );
 };

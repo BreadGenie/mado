@@ -4,8 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Notifications from "./Notifications";
 import Options from "./Options";
-import VideoPlayer from "./VideoPlayer";
 import Navbar from "./Navbar";
+import HomeVideoPlayer from "./HomeVideoPlayer";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -29,7 +29,7 @@ const Home = (): JSX.Element => {
       <Navbar />
       <Grid container className={classes.gridContainer}>
         <Grid item>
-          <VideoPlayer />
+          <HomeVideoPlayer />
         </Grid>
         <Grid item>
           <Options>
