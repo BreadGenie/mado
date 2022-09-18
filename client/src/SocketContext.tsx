@@ -29,7 +29,6 @@ const ContextProvider = ({
 
   const myVideo = useRef<HTMLVideoElement | null>(null);
   const userVideo = useRef<HTMLVideoElement | null>(null);
-  const connectionRef = useRef<MediaStream | Peer.Instance>();
 
   const mediaStream = useRef<MediaStream>();
 
@@ -81,8 +80,6 @@ const ContextProvider = ({
     });
 
     peer.signal(call.signal);
-
-    connectionRef.current = stream;
   };
 
   const declineCall = (): void => {
@@ -111,8 +108,6 @@ const ContextProvider = ({
       setCallAccepted(true);
       peer.signal(signal);
     });
-
-    connectionRef.current = peer;
   };
 
   const leaveCall = (): void => {
