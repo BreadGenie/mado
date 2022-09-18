@@ -33,7 +33,7 @@ const Notifications = (): JSX.Element => {
 
   const handleAnswerCall = () => {
     answerCall();
-    navigate("/join");
+    navigate("/call");
   };
 
   return (
