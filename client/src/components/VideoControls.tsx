@@ -29,18 +29,17 @@ const VideoControls = (): JSX.Element => {
     setIsAudio,
     isVideo,
     setIsVideo,
-    mediaStream,
     leaveCall,
     callAccepted,
   } = useSocketContext();
 
   const handleAudio = (): void => {
-    mediaStream.current!.getAudioTracks()[0].enabled = !isAudio;
+    stream!.getAudioTracks()[0].enabled = !isAudio;
     setIsAudio((prevAudio) => !prevAudio);
   };
 
   const handleVideo = (): void => {
-    mediaStream.current!.getVideoTracks()[0].enabled = !isVideo;
+    stream!.getVideoTracks()[0].enabled = !isVideo;
     setIsVideo((prevVideo) => !prevVideo);
   };
 

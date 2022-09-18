@@ -59,7 +59,7 @@ const ContextProvider = ({
   }, []);
 
   useEffect(() => {
-    if (callAccepted) myVideo.current!.srcObject = mediaStream.current!;
+    if (callAccepted) myVideo.current!.srcObject = stream!;
   }, [callAccepted]);
 
   const answerCall = (): void => {
