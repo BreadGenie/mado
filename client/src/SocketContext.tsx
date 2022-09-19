@@ -55,11 +55,13 @@ const ContextProvider = ({
         signal,
       })
     );
+  }, []);
 
+  useEffect(() => {
     socket.on("callended", () => {
       if (callAccepted) window.location.reload();
     });
-  }, []);
+  }, [callAccepted]);
 
   useEffect(() => {
     if (callAccepted) myVideo.current!.srcObject = stream!;

@@ -27,10 +27,10 @@ const Home = (): JSX.Element => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const { callAccepted } = useSocketContext();
+  const { callAccepted, callEnded } = useSocketContext();
 
   useEffect(() => {
-    if (callAccepted) navigate("/call");
+    if (callAccepted && !callEnded) navigate("/call");
   }, [callAccepted]);
 
   return (
