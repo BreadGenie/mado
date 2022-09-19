@@ -58,8 +58,8 @@ const ContextProvider = ({
   }, []);
 
   useEffect(() => {
-    socket.on("callended", () => {
-      if (callAccepted) window.location.reload();
+    socket.on("callended", (id) => {
+      if (callAccepted && id === me) window.location.reload();
     });
   }, [callAccepted]);
 
