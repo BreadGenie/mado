@@ -6,7 +6,7 @@ import {
   VideocamOff,
   Mic,
   MicOff,
-  PhoneDisabled,
+  Phone,
   VolumeOff,
   VolumeUp,
 } from "@material-ui/icons";
@@ -124,7 +124,7 @@ const VideoControls = (): JSX.Element => {
               size="lg"
               onClick={leaveCall}
             >
-              <PhoneDisabled />
+              <Phone />
             </IconButton>
           </Grid>
         </>
