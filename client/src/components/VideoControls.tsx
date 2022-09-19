@@ -48,71 +48,85 @@ const VideoControls = (): JSX.Element => {
   };
 
   return (
-    <Grid container className={classes.gridContainer}>
+    <Grid container spacing={2} className={classes.gridContainer}>
       {stream &&
         (isVideo ? (
-          <IconButton
-            sx={{ marginRight: "5px" }}
-            aria-label="Turn video camera off"
-            variant="solid"
-            color="primary"
-            onClick={handleVideo}
-          >
-            <Videocam />
-          </IconButton>
+          <Grid item>
+            <IconButton
+              aria-label="Turn video camera off"
+              variant="solid"
+              color="primary"
+              size="lg"
+              onClick={handleVideo}
+            >
+              <Videocam />
+            </IconButton>
+          </Grid>
         ) : (
-          <IconButton
-            sx={{ marginRight: "5px" }}
-            aria-label="Turn video camera oon"
-            variant="solid"
-            color="danger"
-            onClick={handleVideo}
-          >
-            <VideocamOff />
-          </IconButton>
+          <Grid item>
+            <IconButton
+              aria-label="Turn video camera oon"
+              variant="solid"
+              color="danger"
+              size="lg"
+              onClick={handleVideo}
+            >
+              <VideocamOff />
+            </IconButton>
+          </Grid>
         ))}
       {stream &&
         (isAudio ? (
-          <IconButton
-            sx={{ marginLeft: "5px" }}
-            aria-label="Turn mic off"
-            variant="solid"
-            color="primary"
-            onClick={handleAudio}
-          >
-            <Mic />
-          </IconButton>
+          <Grid item>
+            <IconButton
+              aria-label="Turn mic off"
+              variant="solid"
+              color="primary"
+              size="lg"
+              onClick={handleAudio}
+            >
+              <Mic />
+            </IconButton>
+          </Grid>
         ) : (
-          <IconButton
-            sx={{ marginLeft: "5px" }}
-            aria-label="Turn mic on"
-            variant="solid"
-            color="danger"
-            onClick={handleAudio}
-          >
-            <MicOff />
-          </IconButton>
+          <Grid item>
+            <IconButton
+              aria-label="Turn mic on"
+              variant="solid"
+              color="danger"
+              size="lg"
+              onClick={handleAudio}
+            >
+              <MicOff />
+            </IconButton>
+          </Grid>
         ))}
       {callAccepted && (
         <>
-          <IconButton
-            sx={{ margin: "10px" }}
-            aria-label="Mute Call"
-            variant="solid"
-            color={isCallerMuted ? "danger" : "primary"}
-            onClick={() => setIsCallerMuted((isCallerMuted) => !isCallerMuted)}
-          >
-            {isCallerMuted ? <VolumeOff /> : <VolumeUp />}
-          </IconButton>
-          <IconButton
-            sx={{ marginLeft: "5px" }}
-            aria-label="Hang Up"
-            variant="solid"
-            color="danger"
-            onClick={leaveCall}
-          >
-            <PhoneDisabled />
-          </IconButton>
+          <Grid item>
+            <IconButton
+              aria-label="Mute Call"
+              variant="solid"
+              size="lg"
+              color={isCallerMuted ? "danger" : "primary"}
+              onClick={() =>
+                setIsCallerMuted((isCallerMuted) => !isCallerMuted)
+              }
+            >
+              {isCallerMuted ? <VolumeOff /> : <VolumeUp />}
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <IconButton
+              aria-label="Hang Up"
+              variant="solid"
+              color="danger"
+              size="lg"
+              onClick={leaveCall}
+            >
+              <PhoneDisabled />
+            </IconButton>
+          </Grid>
         </>
       )}
     </Grid>
