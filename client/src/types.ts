@@ -25,5 +25,7 @@ export interface Context {
   setIsAudio: React.Dispatch<React.SetStateAction<boolean>>;
   isVideo: boolean;
   setIsVideo: React.Dispatch<React.SetStateAction<boolean>>;
+  isCallerMuted: boolean;
+  setIsCallerMuted: React.Dispatch<React.SetStateAction<boolean>>;
   mediaStream: React.MutableRefObject<MediaStream | undefined>;
 }

@@ -26,6 +26,7 @@ const ContextProvider = ({
 
   const [isAudio, setIsAudio] = useState(true);
   const [isVideo, setIsVideo] = useState(true);
+  const [isCallerMuted, setIsCallerMuted] = useState(false);
 
   const myVideo = useRef<HTMLVideoElement | null>(null);
   const userVideo = useRef<HTMLVideoElement | null>(null);
@@ -136,6 +137,8 @@ const ContextProvider = ({
         setIsAudio,
         isVideo,
         setIsVideo,
+        isCallerMuted,
+        setIsCallerMuted,
         mediaStream,
       }}
     >

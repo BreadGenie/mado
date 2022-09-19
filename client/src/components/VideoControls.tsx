@@ -7,6 +7,8 @@ import {
   Mic,
   MicOff,
   PhoneDisabled,
+  VolumeOff,
+  VolumeUp,
 } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -29,6 +31,8 @@ const VideoControls = (): JSX.Element => {
     setIsAudio,
     isVideo,
     setIsVideo,
+    isCallerMuted,
+    setIsCallerMuted,
     leaveCall,
     callAccepted,
   } = useSocketContext();
@@ -90,15 +94,26 @@ const VideoControls = (): JSX.Element => {
           </IconButton>
         ))}
       {callAccepted && (
-        <IconButton
-          sx={{ marginLeft: "5px" }}
-          aria-label="Hang Up"
-          variant="solid"
-          color="danger"
-          onClick={leaveCall}
-        >
-          <PhoneDisabled />
-        </IconButton>
+        <>
+          <IconButton
+            sx={{ margin: "10px" }}
+            aria-label="Mute Call"
+            variant="solid"
+            color={isCallerMuted ? "danger" : "primary"}
+            onClick={() => setIsCallerMuted((isCallerMuted) => !isCallerMuted)}
+          >
+            {isCallerMuted ? <VolumeOff /> : <VolumeUp />}
+          </IconButton>
+          <IconButton
+            sx={{ marginLeft: "5px" }}
+            aria-label="Hang Up"
+            variant="solid"
+            color="danger"
+            onClick={leaveCall}
+          >
+            <PhoneDisabled />
+          </IconButton>
+        </>
       )}
     </Grid>
   );

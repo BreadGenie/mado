@@ -1,25 +1,30 @@
-import React, { useState } from "react";
-import { Grid, Paper } from "@material-ui/core";
-import { IconButton, Typography } from "@mui/joy";
+import React from "react";
+import { Typography } from "@mui/joy";
 import { makeStyles } from "@material-ui/core/styles";
 
 import VideoControls from "./VideoControls";
-import { VolumeOff, VolumeUp } from "@material-ui/icons";
 import { useSocketContext } from "../utils";
 
-const useStyles = makeStyles((theme) => ({
-  video: {
-    width: "500px",
-    [theme.breakpoints.down("xs")]: {
-      width: "300px",
-    },
+const useStyles = makeStyles(() => ({
+  remoteVideo: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "grey",
+    objectFit: "cover",
   },
-  gridContainer: {
-    justifyContent: "center",
-    alignContent: "center",
-    [theme.breakpoints.down("xs")]: {
-      flexDirection: "column",
-    },
+  videoContainer: {
+    position: "fixed",
+    left: "0%",
+    height: "100vh",
+    width: "100vw",
+    overflow: "hidden",
+    backgroundColor: "black",
+  },
+  videoControls: {
+    position: "fixed",
+    left: "50%",
+    bottom: "10px",
+    translate: "-50%",
   },
   paper: {
     padding: "10px",
@@ -27,68 +32,68 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     margin: "10px",
   },
+  myVideo: {
+    position: "fixed",
+    top: "20px",
+    left: "20px",
+    height: "170px",
+    width: "300px",
+    borderRadius: "5px",
+    border: "2px solid lightgrey",
+    boxShadow: "3px 3px 15px -1px rgba(0, 0, 0, 0.77)",
+    objectFit: "cover",
+  },
+  callerName: {
+    position: "fixed",
+    left: "5%",
+    bottom: "5%",
+  },
 }));
 
 const VideoPlayer = (): JSX.Element => {
-  const { name, callEnded, myVideo, userVideo, stream, callAccepted, call } =
-    useSocketContext();
+  const {
+    callEnded,
+    myVideo,
+    userVideo,
+    stream,
+    callAccepted,
+    call,
+    isCallerMuted,
+  } = useSocketContext();
 
   const classes = useStyles();
 
-  const [isCallerMuted, setIsCallerMuted] = useState(false);
-
   return (
-    <Grid container className={classes.gridContainer}>
-      {stream && (
-        <Paper className={classes.paper}>
-          <Grid item xs={12} md={6}>
-            <Typography level="h5" gutterBottom>
-              {name || "Name"}
-            </Typography>
-            <video
-              playsInline
-              muted
-              ref={myVideo}
-              autoPlay
-              className={classes.video}
-            />
-          </Grid>
-          <VideoControls />
-        </Paper>
-      )}
+    <div className={classes.videoContainer}>
       {callAccepted && !callEnded && (
-        <Paper className={classes.paper}>
-          <Grid item xs={12} md={6}>
-            <Typography level="h5" gutterBottom>
-              {call.name || "Name"}
-            </Typography>
-            <video
-              playsInline
-              muted={isCallerMuted}
-              ref={userVideo}
-              autoPlay
-              className={classes.video}
-            />
-          </Grid>
-          <Grid
-            container
-            style={{ justifyContent: "center", alignItems: "center" }}
-          >
-            <IconButton
-              sx={{ margin: "10px" }}
-              aria-label="Mute Call"
-              variant="solid"
-              color={isCallerMuted ? "danger" : "primary"}
-              onClick={() =>
-                setIsCallerMuted((isCallerMuted) => !isCallerMuted)
-              }
-            >
-              {isCallerMuted ? <VolumeOff /> : <VolumeUp />}
-            </IconButton>
-          </Grid>
-        </Paper>
+        <>
+          <Typography level="h5" className={classes.callerName}>
+            {call.name || "Name"}
+          </Typography>
+          <video
+            playsInline
+            muted={isCallerMuted}
+            ref={userVideo}
+            autoPlay
+            className={classes.remoteVideo}
+          />
+          <div className={classes.videoControls}>
+            <VideoControls />
+          </div>
+        </>
       )}
-    </Grid>
+      {stream && (
+        <>
+          <video
+            playsInline
+            muted
+            ref={myVideo}
+            autoPlay
+            className={classes.myVideo}
+          />
+        </>
+      )}
+    </div>
   );
 };
 
