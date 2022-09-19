@@ -107,6 +107,7 @@ const ContextProvider = ({
     socket.on("callaccepted", ({ signal, receiverName }) => {
       setCall((prevState) => ({ ...prevState, name: receiverName }));
       setCallAccepted(true);
+      myVideo.current!.srcObject = stream!;
       peer.signal(signal);
     });
   };
