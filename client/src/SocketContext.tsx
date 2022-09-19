@@ -56,7 +56,9 @@ const ContextProvider = ({
       })
     );
 
-    socket.on("callended", () => window.location.reload());
+    socket.on("callended", () => {
+      if (callAccepted) window.location.reload();
+    });
   }, []);
 
   useEffect(() => {
