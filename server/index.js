@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     const callerId = peerPair[me];
 
-    socket.broadcast.emit("callended", callerId);
+    io.to(callerId).emit("callended");
 
     delete peerPair[me];
     delete peerPair[callerId];
@@ -44,7 +44,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("callended", (data) => {
-    io.to(data.to).emit("callended", data.to);
+    io.to(data.to).emit("callended");
   });
 });
 
