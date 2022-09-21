@@ -5,18 +5,14 @@ const madoTheme = extendTheme({
     light: {
       palette: {
         primary: {
-          solidBg: "#228be6",
-          solidHoverBg: "#1c7ed6",
+          solidBg: "#171717",
+          solidHoverBg: "#3d3d3d",
           solidActiveBg: undefined,
-          softColor: "#228be6",
-          softBg: "rgba(231, 245, 255, 1)",
-          softHoverBg: "rgba(208, 235, 255, 0.65)",
-          softActiveBg: undefined,
-          outlinedColor: "#228be6",
-          outlinedBorder: "#228be6",
-          outlinedHoverBg: "rgba(231, 245, 255, 0.35)",
-          outlinedHoverBorder: undefined,
-          outlinedActiveBg: undefined,
+        },
+        danger: {
+          solidBg: "#DA0037",
+          solidHoverBg: "#b5002d",
+          solidActiveBg: undefined,
         },
       },
     },
@@ -46,6 +42,13 @@ const madoTheme = extendTheme({
           "&:active": {
             transform: "translateY(1px)",
           },
+        }),
+      },
+    },
+    JoyIconButton: {
+      styleOverrides: {
+        root: () => ({
+          borderRadius: "100px",
         }),
       },
     },
