@@ -30,6 +30,7 @@ const App = (): JSX.Element => {
         <Container className={classes.wrapper}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/:id" element={<Home />} />
             <Route
               path="/call"
               element={

@@ -7,7 +7,7 @@ import Options from "./Options";
 import Navbar from "./Navbar";
 import HomeVideoPlayer from "./HomeVideoPlayer";
 import { useSocketContext } from "../hooks/useSocketContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = (): JSX.Element => {
   const classes = useStyles();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const { callAccepted, callEnded } = useSocketContext();
 
@@ -41,7 +42,7 @@ const Home = (): JSX.Element => {
           <HomeVideoPlayer />
         </Grid>
         <Grid item>
-          <Options>
+          <Options callerId={id || ""}>
             <Notifications />
           </Options>
         </Grid>

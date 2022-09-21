@@ -30,9 +30,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Options = ({ children }: { children: React.ReactNode }): JSX.Element => {
+const Options = ({
+  children,
+  callerId,
+}: {
+  children: React.ReactNode;
+  callerId: string;
+}): JSX.Element => {
   const { me, name, callAccepted, setName, callUser } = useSocketContext();
-  const [idToCall, setIdToCall] = useState("");
+  const [idToCall, setIdToCall] = useState(callerId);
   const classes = useStyles();
 
   return (
@@ -52,7 +58,7 @@ const Options = ({ children }: { children: React.ReactNode }): JSX.Element => {
               fullWidth
               required
             />
-            <CopyToClipboard text={me}>
+            <CopyToClipboard text={`${window.location.href}${me}`}>
               <Button
                 aria-label="Copy to clipboard"
                 variant="solid"
@@ -60,7 +66,7 @@ const Options = ({ children }: { children: React.ReactNode }): JSX.Element => {
                 fullWidth
                 startIcon={<Assignment fontSize="large" />}
               >
-                Copy your account ID
+                Copy Call Link
               </Button>
             </CopyToClipboard>
           </Grid>
