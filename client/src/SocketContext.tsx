@@ -58,8 +58,8 @@ const ContextProvider = ({
   }, []);
 
   useEffect(() => {
-    socket.on("callended", () => {
-      if (callAccepted) window.location.reload();
+    socket.on("callended", (callUser) => {
+      if (callAccepted && callUser === call.from) window.location.reload();
     });
   }, [callAccepted]);
 
@@ -109,7 +109,7 @@ const ContextProvider = ({
     });
 
     socket.on("callaccepted", ({ signal, receiverName }) => {
-      setCall((prevState) => ({ ...prevState, name: receiverName }));
+      setCall((prevState) => ({ ...prevState, from: id, name: receiverName }));
       setCallAccepted(true);
       myVideo.current!.srcObject = stream!;
       peer.signal(signal);

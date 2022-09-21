@@ -10,8 +10,6 @@ app.use(cors());
 
 const port = process.env.PORT || 5000;
 
-const peerPair = {};
-
 app.get("/", function (req, res) {
   res.send("server is running");
 });
@@ -21,21 +19,14 @@ io.on("connection", (socket) => {
   socket.emit("me", me);
 
   socket.on("disconnect", () => {
-    const callerId = peerPair[me];
-
-    io.to(callerId).emit("callended");
-
-    delete peerPair[me];
-    delete peerPair[callerId];
+    socket.broadcast.emit("callended", me);
   });
 
   socket.on("calluser", ({ userToCall, signalData, from, name }) => {
-    peerPair[me] = userToCall;
     io.to(userToCall).emit("calluser", { signal: signalData, from, name });
   });
 
   socket.on("answercall", ({ signal, to, receiverName }) => {
-    peerPair[me] = to;
     io.to(to).emit("callaccepted", { signal, receiverName });
   });
 
@@ -44,7 +35,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("callended", (data) => {
-    io.to(data.to).emit("callended");
+    io.to(data.to).emit("callended", me);
   });
 });
 
