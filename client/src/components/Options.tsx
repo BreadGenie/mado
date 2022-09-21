@@ -5,7 +5,7 @@ import { Button, TextField, Typography } from "@mui/joy";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Assignment, Phone } from "@material-ui/icons";
 
-import { useSocketContext } from "../utils";
+import { useSocketContext } from "../hooks/useSocketContext";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -50,6 +50,7 @@ const Options = ({ children }: { children: React.ReactNode }): JSX.Element => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               fullWidth
+              required
             />
             <CopyToClipboard text={me}>
               <Button

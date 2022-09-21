@@ -6,7 +6,7 @@ import Notifications from "./Notifications";
 import Options from "./Options";
 import Navbar from "./Navbar";
 import HomeVideoPlayer from "./HomeVideoPlayer";
-import { useSocketContext } from "../utils";
+import { useSocketContext } from "../hooks/useSocketContext";
 import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({

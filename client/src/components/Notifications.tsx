@@ -5,7 +5,7 @@ import { IconButton, Box } from "@mui/joy";
 import { Call, CallEnd } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { useSocketContext } from "../utils";
+import { useSocketContext } from "../hooks/useSocketContext";
 
 const useStyles = makeStyles(() => ({
   box: {

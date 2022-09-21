@@ -8,7 +8,7 @@ import Home from "./components/Home";
 import Call from "./components/Call";
 
 import madoTheme from "./madoTheme";
-import { useSocketContext } from "./utils";
+import { useSocketContext } from "./hooks/useSocketContext";
 
 const useStyles = makeStyles(() => ({
   wrapper: {

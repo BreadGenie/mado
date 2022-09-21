@@ -4,7 +4,7 @@ import { Typography } from "@mui/joy";
 import { makeStyles } from "@material-ui/core/styles";
 
 import VideoControls from "./VideoControls";
-import { useSocketContext } from "../utils";
+import { useSocketContext } from "../hooks/useSocketContext";
 
 const useStyles = makeStyles((theme) => ({
   video: {
