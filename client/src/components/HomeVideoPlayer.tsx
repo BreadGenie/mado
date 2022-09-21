@@ -1,42 +1,37 @@
 import React from "react";
-import { Paper } from "@material-ui/core";
-import { Typography } from "@mui/joy";
 import { makeStyles } from "@material-ui/core/styles";
 
 import VideoControls from "./VideoControls";
 import { useSocketContext } from "../hooks/useSocketContext";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   video: {
-    width: "600px",
-    [theme.breakpoints.down("md")]: {
-      width: "450px",
-    },
-    [theme.breakpoints.down("xs")]: {
-      width: "300px",
-    },
+    width: "100%",
   },
-  paper: {
-    padding: "10px",
-    border: "2px solid lightgrey",
-    borderRadius: "10px",
+  videoContainer: {
+    position: "relative",
     margin: "10px",
   },
-  gridContainer: {},
+  videoControls: {
+    position: "absolute",
+    bottom: "5px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    left: 0,
+    right: 0,
+    textAlign: "center",
+  },
 }));
 
 const HomeVideoPlayer = () => {
   const classes = useStyles();
 
-  const { name, myVideo, stream } = useSocketContext();
+  const { myVideo, stream } = useSocketContext();
 
   return (
     <>
       {stream && (
-        <Paper className={classes.paper}>
-          <Typography level="h5" gutterBottom>
-            {name || "Name"}
-          </Typography>
+        <div className={classes.videoContainer}>
           <video
             playsInline
             muted
@@ -44,8 +39,10 @@ const HomeVideoPlayer = () => {
             autoPlay
             className={classes.video}
           />
-          <VideoControls />
-        </Paper>
+          <div className={classes.videoControls}>
+            <VideoControls />
+          </div>
+        </div>
       )}
     </>
   );
