@@ -22,6 +22,9 @@ const useStyles = makeStyles(() => ({
   padding: {
     padding: 20,
   },
+  copyButtonPadding: {
+    padding: "0 20px",
+  },
   paper: {
     margin: "35px auto",
     padding: "10px 20px",
@@ -60,13 +63,26 @@ const Options = ({
             />
             <CopyToClipboard text={`${window.location.href}${me}`}>
               <Button
-                aria-label="Copy to clipboard"
+                aria-label="Copy call link to clipboard"
                 variant="solid"
                 color="primary"
                 fullWidth
                 startIcon={<Assignment fontSize="large" />}
               >
                 Copy Call Link
+              </Button>
+            </CopyToClipboard>
+          </Grid>
+          <Grid item className={classes.copyButtonPadding}>
+            <CopyToClipboard text={me}>
+              <Button
+                aria-label="Copy account ID to clipboard"
+                variant="solid"
+                color="primary"
+                fullWidth
+                startIcon={<Assignment fontSize="large" />}
+              >
+                Copy Account ID
               </Button>
             </CopyToClipboard>
           </Grid>
