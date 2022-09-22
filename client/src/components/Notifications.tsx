@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "@material-ui/core";
-import { IconButton, Box } from "@mui/joy";
+import { IconButton, Box, Typography } from "@mui/joy";
 import { Call, CallEnd } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -22,6 +22,8 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
+    padding: "10px 10px 0",
+    textAlign: "center",
   },
 }));
 
@@ -46,7 +48,7 @@ const Notifications = (): JSX.Element => {
           aria-describedby="modal-modal-description"
         >
           <Box className={classes.box}>
-            <h1>{call.name} is calling</h1>
+            <Typography level="h2">{call.name} is calling</Typography>
             <Box sx={{ padding: "10px" }}>
               <IconButton
                 style={{ margin: 10 }}
