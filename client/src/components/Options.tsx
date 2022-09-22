@@ -47,7 +47,7 @@ const Options = ({
         <Grid className={classes.gridContainer} container>
           <Grid item className={classes.padding}>
             <Typography gutterBottom level="h6">
-              Account Info
+              Name
             </Typography>
             <TextField
               className={classes.margin}
