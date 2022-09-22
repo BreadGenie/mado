@@ -7,7 +7,7 @@ import {
   animals,
 } from "unique-names-generator";
 
-import { Context, Call } from "./types";
+import { Context, Call } from "../types";
 
 const SocketContext = createContext<Context | null>(null);
 
