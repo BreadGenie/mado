@@ -1,6 +1,12 @@
 import React, { createContext, useState, useRef, useEffect } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  animals,
+} from "unique-names-generator";
+
 import { Context, Call } from "./types";
 
 const SocketContext = createContext<Context | null>(null);
@@ -22,7 +28,14 @@ const ContextProvider = ({
   });
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
-  const [name, setName] = useState("");
+
+  const randomName = uniqueNamesGenerator({
+    dictionaries: [adjectives, animals],
+    separator: " ",
+    style: "capital",
+  });
+
+  const [name, setName] = useState(randomName);
 
   const [isAudio, setIsAudio] = useState(true);
   const [isVideo, setIsVideo] = useState(true);
