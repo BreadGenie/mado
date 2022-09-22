@@ -7,6 +7,7 @@ import { useSocketContext } from "../hooks/useSocketContext";
 const useStyles = makeStyles(() => ({
   video: {
     width: "100%",
+    transform: "rotateY(180deg)",
   },
   videoContainer: {
     position: "relative",

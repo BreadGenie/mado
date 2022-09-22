@@ -42,6 +42,7 @@ const useStyles = makeStyles(() => ({
     border: "2px solid lightgrey",
     boxShadow: "3px 3px 15px -1px rgba(0, 0, 0, 0.77)",
     objectFit: "cover",
+    transform: "rotateY(180deg)",
   },
   callerName: {
     position: "fixed",
