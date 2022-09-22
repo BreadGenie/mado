@@ -68,7 +68,7 @@ const VideoPlayer = (): JSX.Element => {
       {callAccepted && !callEnded && (
         <>
           <Typography level="h5" className={classes.callerName}>
-            {call.name || "Name"}
+            {call.name}
           </Typography>
           <video
             playsInline
