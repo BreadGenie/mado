@@ -47,6 +47,17 @@ const ContextProvider = ({
   const mediaStream = useRef<MediaStream>();
 
   useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((currentStream) => {
+        mediaStream.current = currentStream;
+        setStream(currentStream);
+        myVideo.current!.srcObject = currentStream;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     socket.on("me", (id) => setMe(id));
 
     socket.on("calluser", ({ from, name: callerName, signal }) =>
@@ -60,16 +71,7 @@ const ContextProvider = ({
   }, []);
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        mediaStream.current = currentStream;
-        setStream(currentStream);
-        myVideo.current!.srcObject = currentStream;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (myVideo.current) myVideo.current!.srcObject = stream!;
   }, [isVideo]);
 
   useEffect(() => {
