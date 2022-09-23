@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography } from "@mui/joy";
+import { Avatar, Typography } from "@mui/joy";
 import { makeStyles } from "@material-ui/core/styles";
 
 import VideoControls from "./VideoControls";
@@ -32,17 +32,33 @@ const useStyles = makeStyles(() => ({
     borderRadius: "10px",
     margin: "10px",
   },
-  myVideo: {
+  myVideoContainer: {
     position: "fixed",
     top: "20px",
     left: "20px",
     height: "170px",
     width: "300px",
+    boxShadow: "3px 3px 15px -1px rgba(0, 0, 0, 0.77)",
+  },
+  myVideo: {
+    height: "170px",
+    width: "300px",
+    objectFit: "cover",
     borderRadius: "5px",
     border: "2px solid lightgrey",
-    boxShadow: "3px 3px 15px -1px rgba(0, 0, 0, 0.77)",
-    objectFit: "cover",
     transform: "rotateY(180deg)",
+  },
+  avatar: {
+    position: "absolute",
+    display: "flex",
+    backgroundColor: "#171717",
+    height: "100%",
+    width: "300px",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    borderRadius: "5px",
+    border: "2px solid lightgrey",
   },
   callerName: {
     position: "fixed",
@@ -53,6 +69,7 @@ const useStyles = makeStyles(() => ({
 
 const VideoPlayer = (): JSX.Element => {
   const {
+    isVideo,
     callEnded,
     myVideo,
     userVideo,
@@ -84,15 +101,24 @@ const VideoPlayer = (): JSX.Element => {
         </>
       )}
       {stream && (
-        <>
-          <video
-            playsInline
-            muted
-            ref={myVideo}
-            autoPlay
-            className={classes.myVideo}
-          />
-        </>
+        <div className={classes.myVideoContainer}>
+          <div className={classes.avatar}>
+            <Avatar
+              sx={{
+                "--Avatar-size": "80px",
+              }}
+            />
+          </div>
+          {isVideo && (
+            <video
+              playsInline
+              muted
+              ref={myVideo}
+              autoPlay
+              className={classes.myVideo}
+            />
+          )}
+        </div>
       )}
     </div>
   );
