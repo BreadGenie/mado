@@ -5,7 +5,7 @@ import { Avatar } from "@mui/joy";
 import VideoControls from "./VideoControls";
 import { useSocketContext } from "../hooks/useSocketContext";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   video: {
     position: "absolute",
     width: "100%",
@@ -15,6 +15,12 @@ const useStyles = makeStyles(() => ({
     position: "relative",
     margin: "10px",
     aspectRatio: "4/3",
+    [theme.breakpoints.between("sm", "md")]: {
+      height: "500px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      height: "30vh",
+    },
   },
   videoControls: {
     position: "absolute",
