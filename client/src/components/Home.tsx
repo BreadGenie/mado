@@ -37,8 +37,8 @@ const Home = (): JSX.Element => {
   return (
     <>
       <Navbar />
-      <Grid container className={classes.gridContainer}>
-        <Grid item>
+      <Grid container spacing={4} className={classes.gridContainer}>
+        <Grid item xs>
           <HomeVideoPlayer />
         </Grid>
         <Grid item>
