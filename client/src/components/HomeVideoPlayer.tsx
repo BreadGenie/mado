@@ -7,19 +7,19 @@ import { useSocketContext } from "../hooks/useSocketContext";
 
 const useStyles = makeStyles((theme) => ({
   video: {
-    position: "absolute",
+    height: "100%",
     width: "100%",
     transform: "rotateY(180deg)",
   },
   videoContainer: {
+    display: "flex",
     position: "relative",
     margin: "10px",
-    aspectRatio: "4/3",
-    [theme.breakpoints.between("sm", "md")]: {
-      height: "500px",
-    },
-    [theme.breakpoints.down("sm")]: {
-      height: "30vh",
+    height: "50vh",
+    width: "35vw",
+    [theme.breakpoints.down("md")]: {
+      height: "45vh",
+      width: "65vw",
     },
   },
   videoControls: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     backgroundColor: "#171717",
     height: "100%",
-    aspectRatio: "4/3",
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",

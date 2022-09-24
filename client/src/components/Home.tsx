@@ -11,7 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
-    padding: "0 30px",
+    padding: "0 40px",
     justifyContent: "space-between",
     alignItems: "flex-start",
     [theme.breakpoints.down("md")]: {
