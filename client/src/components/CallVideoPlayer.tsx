@@ -9,8 +9,7 @@ const useStyles = makeStyles(() => ({
   remoteVideo: {
     width: "100%",
     height: "100%",
-    backgroundColor: "grey",
-    objectFit: "cover",
+    backgroundColor: "#171717",
   },
   videoContainer: {
     position: "fixed",
