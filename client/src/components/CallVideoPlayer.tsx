@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import VideoControls from "./VideoControls";
 import { useSocketContext } from "../hooks/useSocketContext";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   remoteVideo: {
     width: "100%",
     height: "100%",
@@ -35,13 +35,16 @@ const useStyles = makeStyles(() => ({
     position: "fixed",
     top: "20px",
     left: "20px",
-    height: "170px",
-    width: "300px",
+    height: "20vh",
+    width: "25vw",
     boxShadow: "3px 3px 15px -1px rgba(0, 0, 0, 0.77)",
+    [theme.breakpoints.up("md")]: {
+      width: "15vw",
+    },
   },
   myVideo: {
-    height: "170px",
-    width: "300px",
+    height: "100%",
+    width: "100%",
     objectFit: "cover",
     borderRadius: "5px",
     border: "2px solid lightgrey",
@@ -52,7 +55,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     backgroundColor: "#171717",
     height: "100%",
-    width: "300px",
+    width: "100%",
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
