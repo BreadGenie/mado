@@ -63,6 +63,7 @@ const useStyles = makeStyles(() => ({
     position: "fixed",
     left: "5%",
     bottom: "5%",
+    maxWidth: "25vw",
   },
 }));
 
@@ -84,7 +85,11 @@ const VideoPlayer = (): JSX.Element => {
     <div className={classes.videoContainer}>
       {callAccepted && !callEnded && (
         <>
-          <Typography level="h5" className={classes.callerName}>
+          <Typography
+            textColor="white"
+            level="h5"
+            className={classes.callerName}
+          >
             {call.name}
           </Typography>
           <video
