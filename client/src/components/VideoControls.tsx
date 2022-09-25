@@ -9,7 +9,7 @@ import {
   Phone,
   VolumeOff,
   VolumeUp,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { useSocketContext } from "../hooks/useSocketContext";

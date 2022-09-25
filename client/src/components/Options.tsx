@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 import { Button, TextField, Typography } from "@mui/joy";
-import { Phone } from "@material-ui/icons";
+import { Phone } from "@mui/icons-material";
 
 import { useSocketContext } from "../hooks/useSocketContext";
 
