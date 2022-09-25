@@ -85,6 +85,10 @@ const ContextProvider = ({
       });
     });
 
+    socket.on("user-disconnected", () => {
+      userVideo.current!.srcObject = null;
+    });
+
     peer.on("error", (err) => {
       console.log("Error: ", err);
     });
@@ -93,12 +97,6 @@ const ContextProvider = ({
   useEffect(() => {
     if (myVideo.current) myVideo.current!.srcObject = stream!;
   }, [isVideo]);
-
-  useEffect(() => {
-    socket.on("user-disconnected", (callUser) => {
-      if (joinedRoom && callUser === call.from) window.location.reload();
-    });
-  }, [joinedRoom]);
 
   useEffect(() => {
     if (joinedRoom && myVideo.current) myVideo.current!.srcObject = stream!;
