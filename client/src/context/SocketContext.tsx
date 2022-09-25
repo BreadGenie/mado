@@ -78,6 +78,7 @@ const ContextProvider = ({
       }));
 
       incomingCall.answer(mediaStream.current!);
+      peer.connect(incomingCall.peer, { metadata: { name } });
       myVideo.current!.srcObject = mediaStream.current!;
 
       incomingCall.on("stream", (currentStream) => {
@@ -124,6 +125,13 @@ const ContextProvider = ({
         }));
         userVideo.current!.srcObject = currentStream;
       });
+    });
+
+    peer.on("connection", ({ metadata }) => {
+      setCall((prevState) => ({
+        ...prevState,
+        name: metadata.name,
+      }));
     });
   };
 
