@@ -34,7 +34,7 @@ const VideoControls = (): JSX.Element => {
     isCallerMuted,
     setIsCallerMuted,
     leaveCall,
-    callAccepted,
+    joinedRoom,
   } = useSocketContext();
 
   const handleAudio = (): void => {
@@ -101,7 +101,7 @@ const VideoControls = (): JSX.Element => {
             </IconButton>
           </Grid>
         ))}
-      {callAccepted && (
+      {joinedRoom && (
         <>
           <Grid item>
             <IconButton

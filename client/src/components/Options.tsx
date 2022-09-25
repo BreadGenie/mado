@@ -33,15 +33,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Options = ({
-  children,
-  callerId,
-}: {
-  children: React.ReactNode;
-  callerId: string;
-}): JSX.Element => {
-  const { me, name, callAccepted, setName, callUser } = useSocketContext();
-  const [idToCall, setIdToCall] = useState(callerId);
+const Options = ({ roomId }: { roomId: string }): JSX.Element => {
+  const { name, setName, roomName, joinedRoom, joinRoom } = useSocketContext();
+  const [roomToJoin, setRoomToJoin] = useState(roomId || roomName);
   const classes = useStyles();
 
   return (
@@ -61,7 +55,9 @@ const Options = ({
               fullWidth
               required
             />
-            <CopyToClipboard text={`${window.location.href}${me}`}>
+            <CopyToClipboard
+              text={`${window.location.href}${roomId ? "" : roomName}`}
+            >
               <Button
                 aria-label="Copy call link to clipboard"
                 variant="solid"
@@ -74,7 +70,7 @@ const Options = ({
             </CopyToClipboard>
           </Grid>
           <Grid item className={classes.copyButtonPadding}>
-            <CopyToClipboard text={me}>
+            <CopyToClipboard text={roomName}>
               <Button
                 aria-label="Copy account ID to clipboard"
                 variant="solid"
@@ -94,18 +90,18 @@ const Options = ({
               className={classes.margin}
               variant="soft"
               placeholder="ID to call"
-              value={idToCall}
-              onChange={(e) => setIdToCall(e.target.value)}
+              value={roomToJoin}
+              onChange={(e) => setRoomToJoin(e.target.value)}
               fullWidth
             />
-            {!callAccepted && (
+            {!joinedRoom && (
               <Button
                 aria-label="Call a user"
                 variant="solid"
                 color="primary"
                 startIcon={<Phone fontSize="large" />}
                 fullWidth
-                onClick={() => callUser(idToCall)}
+                onClick={() => joinRoom(roomToJoin)}
                 className={classes.margin}
               >
                 Call
@@ -114,7 +110,6 @@ const Options = ({
           </Grid>
         </Grid>
       </form>
-      {children}
     </Paper>
   );
 };

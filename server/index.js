@@ -15,27 +15,14 @@ app.get("/", function (req, res) {
 });
 
 io.on("connection", (socket) => {
-  const me = socket.id;
-  socket.emit("me", me);
+  socket.on("join-room", (roomId, userId) => {
+    socket.emit("joined-room");
+    socket.join(roomId);
+    socket.to(roomId).emit("user-connected", userId);
 
-  socket.on("disconnect", () => {
-    socket.broadcast.emit("callended", me);
-  });
-
-  socket.on("calluser", ({ userToCall, signalData, from, name }) => {
-    io.to(userToCall).emit("calluser", { signal: signalData, from, name });
-  });
-
-  socket.on("answercall", ({ signal, to, receiverName }) => {
-    io.to(to).emit("callaccepted", { signal, receiverName });
-  });
-
-  socket.on("declinecall", (data) => {
-    io.to(data.to).emit("declinecall");
-  });
-
-  socket.on("callended", (data) => {
-    io.to(data.to).emit("callended", me);
+    socket.on("disconnect", () => {
+      socket.to(roomId).emit("user-disconnected", userId);
+    });
   });
 });
 

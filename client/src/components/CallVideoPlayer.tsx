@@ -77,7 +77,7 @@ const VideoPlayer = (): JSX.Element => {
     myVideo,
     userVideo,
     stream,
-    callAccepted,
+    joinedRoom,
     call,
     isCallerMuted,
   } = useSocketContext();
@@ -86,7 +86,7 @@ const VideoPlayer = (): JSX.Element => {
 
   return (
     <div className={classes.videoContainer}>
-      {callAccepted && !callEnded && (
+      {joinedRoom && !callEnded && (
         <>
           <Typography
             textColor="white"

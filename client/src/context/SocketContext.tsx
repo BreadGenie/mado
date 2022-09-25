@@ -1,6 +1,6 @@
 import React, { createContext, useState, useRef, useEffect } from "react";
 import io from "socket.io-client";
-import Peer from "simple-peer";
+import { Peer } from "peerjs";
 import {
   uniqueNamesGenerator,
   adjectives,
@@ -13,6 +13,8 @@ const SocketContext = createContext<Context | null>(null);
 
 const socket = io(process.env.REACT_APP_SERVER_URL ?? "http://localhost:5000/");
 
+const peer = new Peer();
+
 const ContextProvider = ({
   children,
 }: {
@@ -24,9 +26,9 @@ const ContextProvider = ({
     isRecievedCall: false,
     from: "",
     name: "",
-    signal: "",
   });
-  const [callAccepted, setCallAccepted] = useState(false);
+
+  const [joinedRoom, setJoinedRoom] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
 
   const randomName = uniqueNamesGenerator({
@@ -35,6 +37,13 @@ const ContextProvider = ({
     style: "capital",
   });
 
+  const randomRoomName = uniqueNamesGenerator({
+    dictionaries: [adjectives, animals],
+    separator: "",
+    style: "capital",
+  });
+
+  const [roomName, setRoomName] = useState(randomRoomName);
   const [name, setName] = useState(randomName);
 
   const [isAudio, setIsAudio] = useState(true);
@@ -58,16 +67,27 @@ const ContextProvider = ({
         console.log(error);
       });
 
-    socket.on("me", (id) => setMe(id));
+    peer.on("open", (myId) => setMe(myId));
 
-    socket.on("calluser", ({ from, name: callerName, signal }) =>
-      setCall({
+    peer.on("call", (incomingCall) => {
+      setCall((prevState) => ({
+        ...prevState,
+        from: incomingCall.peer,
         isRecievedCall: true,
-        from,
-        name: callerName,
-        signal,
-      })
-    );
+        name: incomingCall.metadata.name,
+      }));
+
+      incomingCall.answer(mediaStream.current!);
+      myVideo.current!.srcObject = mediaStream.current!;
+
+      incomingCall.on("stream", (currentStream) => {
+        userVideo.current!.srcObject = currentStream;
+      });
+    });
+
+    peer.on("error", (err) => {
+      console.log("Error: ", err);
+    });
   }, []);
 
   useEffect(() => {
@@ -75,67 +95,42 @@ const ContextProvider = ({
   }, [isVideo]);
 
   useEffect(() => {
-    socket.on("callended", (callUser) => {
-      if (callAccepted && callUser === call.from) window.location.reload();
+    socket.on("user-disconnected", (callUser) => {
+      if (joinedRoom && callUser === call.from) window.location.reload();
     });
-  }, [callAccepted]);
+  }, [joinedRoom]);
 
   useEffect(() => {
-    if (callAccepted) myVideo.current!.srcObject = stream!;
-  }, [callAccepted]);
+    if (joinedRoom && myVideo.current) myVideo.current!.srcObject = stream!;
+  }, [joinedRoom]);
 
-  const answerCall = (): void => {
-    setCallAccepted(true);
+  const joinRoom = (room: string): void => {
+    setJoinedRoom(true);
 
-    const peer = new Peer({ initiator: false, trickle: false, stream });
+    socket.emit("join-room", room, me);
 
-    peer.on("signal", (data) => {
-      socket.emit("answercall", {
-        signal: data,
-        to: call.from,
-        receiverName: name,
-      });
-    });
-
-    peer.on("stream", (currentStream) => {
-      userVideo.current!.srcObject = currentStream;
-    });
-
-    peer.signal(call.signal);
-  };
-
-  const declineCall = (): void => {
-    socket.emit("declinecall", { to: call.from });
-    setCall({ isRecievedCall: false, from: "", name: "", signal: "" });
-  };
-
-  const callUser = (id: string): void => {
-    const peer = new Peer({ initiator: true, trickle: false, stream });
-
-    peer.on("signal", (data) => {
-      socket.emit("calluser", {
-        userToCall: id,
-        signalData: data,
-        from: me,
-        name,
-      });
-    });
-
-    peer.on("stream", (currentStream) => {
-      userVideo.current!.srcObject = currentStream;
-    });
-
-    socket.on("callaccepted", ({ signal, receiverName }) => {
-      setCall((prevState) => ({ ...prevState, from: id, name: receiverName }));
-      setCallAccepted(true);
+    socket.on("joined-room", () => {
       myVideo.current!.srcObject = stream!;
-      peer.signal(signal);
+    });
+
+    socket.on("user-connected", (id) => {
+      const newCall = peer.call(id, stream!, {
+        metadata: { name },
+      });
+
+      newCall.on("stream", (currentStream) => {
+        setCall((prevState) => ({
+          ...prevState,
+          from: id,
+          isRecievedCall: true,
+        }));
+        userVideo.current!.srcObject = currentStream;
+      });
     });
   };
 
   const leaveCall = (): void => {
     setCallEnded(true);
-    socket.emit("callended", { to: call.from });
     window.location.reload();
   };
 
@@ -143,17 +138,17 @@ const ContextProvider = ({
     <SocketContext.Provider
       value={{
         call,
-        callAccepted,
+        joinedRoom,
         myVideo,
         userVideo,
         stream,
         name,
         setName,
+        roomName,
+        setRoomName,
         callEnded,
         me,
-        callUser,
-        answerCall,
-        declineCall,
+        joinRoom,
         leaveCall,
         isAudio,
         setIsAudio,

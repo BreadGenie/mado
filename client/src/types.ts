@@ -1,25 +1,22 @@
-import Peer from "simple-peer";
-
 export interface Call {
   isRecievedCall: boolean;
   from: string;
   name: string;
-  signal: Peer.SignalData | string;
 }
 
 export interface Context {
   call: Call;
-  callAccepted: boolean;
+  joinedRoom: boolean;
   myVideo: React.MutableRefObject<HTMLVideoElement | null>;
   userVideo: React.MutableRefObject<HTMLVideoElement | null>;
   stream: MediaStream | undefined;
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
+  roomName: string;
+  setRoomName: React.Dispatch<React.SetStateAction<string>>;
   callEnded: boolean;
   me: string;
-  callUser: (id: string) => void;
-  answerCall: () => void;
-  declineCall: () => void;
+  joinRoom: (id: string) => void;
   leaveCall: () => void;
   isAudio: boolean;
   setIsAudio: React.Dispatch<React.SetStateAction<boolean>>;

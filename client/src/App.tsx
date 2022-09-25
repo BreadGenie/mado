@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 const App = (): JSX.Element => {
   const classes = useStyles();
 
-  const { callEnded, callAccepted } = useSocketContext();
+  const { callEnded, joinedRoom } = useSocketContext();
 
   return (
     <CssVarsProvider theme={madoTheme}>
@@ -34,7 +34,7 @@ const App = (): JSX.Element => {
             <Route
               path="/call"
               element={
-                callAccepted && !callEnded ? (
+                joinedRoom && !callEnded ? (
                   <Call />
                 ) : (
                   <Navigate replace to="/" />

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import Notifications from "./Notifications";
 import Options from "./Options";
 import Navbar from "./Navbar";
 import HomeVideoPlayer from "./HomeVideoPlayer";
@@ -28,11 +27,11 @@ const Home = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { callAccepted, callEnded } = useSocketContext();
+  const { joinedRoom, callEnded } = useSocketContext();
 
   useEffect(() => {
-    if (callAccepted && !callEnded) navigate("/call");
-  }, [callAccepted]);
+    if (joinedRoom && !callEnded) navigate("/call");
+  }, [joinedRoom]);
 
   return (
     <>
@@ -42,9 +41,7 @@ const Home = (): JSX.Element => {
           <HomeVideoPlayer />
         </Grid>
         <Grid item>
-          <Options callerId={id || ""}>
-            <Notifications />
-          </Options>
+          <Options roomId={id || ""} />
         </Grid>
       </Grid>
     </>
