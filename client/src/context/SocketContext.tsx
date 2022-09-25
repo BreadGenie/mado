@@ -87,6 +87,11 @@ const ContextProvider = ({
     });
 
     socket.on("user-disconnected", () => {
+      setCall({
+        isRecievedCall: false,
+        from: "",
+        name: "",
+      });
       userVideo.current!.srcObject = null;
     });
 
