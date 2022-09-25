@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 import { Button, TextField, Typography } from "@mui/joy";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Assignment, Phone } from "@material-ui/icons";
+import { Phone } from "@material-ui/icons";
 
 import { useSocketContext } from "../hooks/useSocketContext";
 
@@ -13,14 +12,12 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
   },
   gridContainer: {
+    padding: "20px",
     width: "100%",
     flexDirection: "column",
   },
   margin: {
     marginBottom: "20px",
-  },
-  padding: {
-    padding: 20,
   },
   copyButtonPadding: {
     padding: "0 20px",
@@ -42,7 +39,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
     <Paper className={classes.paper} elevation={10}>
       <form className={classes.root} noValidate autoComplete="off">
         <Grid className={classes.gridContainer} container>
-          <Grid item className={classes.padding}>
+          <Grid item>
             <Typography gutterBottom level="h6">
               Name
             </Typography>
@@ -55,36 +52,10 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
               fullWidth
               required
             />
-            <CopyToClipboard
-              text={`${window.location.href}${roomId ? "" : roomName}`}
-            >
-              <Button
-                aria-label="Copy call link to clipboard"
-                variant="solid"
-                color="primary"
-                fullWidth
-                startIcon={<Assignment fontSize="large" />}
-              >
-                Copy Call Link
-              </Button>
-            </CopyToClipboard>
           </Grid>
-          <Grid item className={classes.copyButtonPadding}>
-            <CopyToClipboard text={roomName}>
-              <Button
-                aria-label="Copy account ID to clipboard"
-                variant="solid"
-                color="primary"
-                fullWidth
-                startIcon={<Assignment fontSize="large" />}
-              >
-                Copy Account ID
-              </Button>
-            </CopyToClipboard>
-          </Grid>
-          <Grid item className={classes.padding}>
+          <Grid item>
             <Typography gutterBottom level="h6">
-              Make a Call
+              Join a Room
             </Typography>
             <TextField
               className={classes.margin}
@@ -104,7 +75,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
                 onClick={() => joinRoom(roomToJoin)}
                 className={classes.margin}
               >
-                Call
+                Join the Room
               </Button>
             )}
           </Grid>
