@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 import { Button, TextField, Typography } from "@mui/joy";
-import { Phone } from "@mui/icons-material";
+import { ContentCopy, Phone } from "@mui/icons-material";
 
 import { useSocketContext } from "../hooks/useSocketContext";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -38,7 +39,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
   return (
     <Paper className={classes.paper} elevation={10}>
       <form className={classes.root} noValidate autoComplete="off">
-        <Grid className={classes.gridContainer} container>
+        <Grid className={classes.gridContainer} container spacing={3}>
           <Grid item>
             <Typography gutterBottom level="h6">
               Name
@@ -52,6 +53,18 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
               fullWidth
               required
             />
+            <CopyToClipboard
+              text={`${window.location.href}${roomId ? "" : roomToJoin}`}
+            >
+              <Button
+                color="primary"
+                variant="solid"
+                startIcon={<ContentCopy fontSize="large" />}
+                fullWidth
+              >
+                Copy Link
+              </Button>
+            </CopyToClipboard>
           </Grid>
           <Grid item>
             <Typography gutterBottom level="h6">
