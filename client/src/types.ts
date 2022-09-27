@@ -6,6 +6,7 @@ export interface Call {
 }
 
 export interface Context {
+  serverLoading: boolean;
   call: Call;
   joinedRoom: boolean;
   myVideo: React.MutableRefObject<HTMLVideoElement | null>;

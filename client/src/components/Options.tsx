@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
-import { Button, TextField, Typography } from "@mui/joy";
+import { LoadingButton } from "@mui/lab";
+import { TextField, Typography } from "@mui/joy";
 import { ContentCopy, Phone } from "@mui/icons-material";
 
 import { useSocketContext } from "../hooks/useSocketContext";
@@ -32,7 +33,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Options = ({ roomId }: { roomId: string }): JSX.Element => {
-  const { name, setName, roomName, joinedRoom, joinRoom } = useSocketContext();
+  const { serverLoading, name, setName, roomName, joinedRoom, joinRoom } =
+    useSocketContext();
   const [roomToJoin, setRoomToJoin] = useState(roomId || roomName);
   const classes = useStyles();
 
@@ -56,14 +58,18 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
             <CopyToClipboard
               text={`${window.location.href}${roomId ? "" : roomToJoin}`}
             >
-              <Button
+              <LoadingButton
+                size="large"
+                loadingPosition="start"
+                loading={serverLoading}
                 color="primary"
-                variant="solid"
+                variant="contained"
+                aria-label="Copy Room Link"
                 startIcon={<ContentCopy fontSize="large" />}
                 fullWidth
               >
                 Copy Link
-              </Button>
+              </LoadingButton>
             </CopyToClipboard>
           </Grid>
           <Grid item>
@@ -79,9 +85,12 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
               fullWidth
             />
             {!joinedRoom && (
-              <Button
-                aria-label="Call a user"
-                variant="solid"
+              <LoadingButton
+                size="large"
+                loadingPosition="start"
+                loading={serverLoading}
+                aria-label="Join the Room"
+                variant="contained"
                 color="primary"
                 startIcon={<Phone fontSize="large" />}
                 fullWidth
@@ -89,7 +98,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
                 className={classes.margin}
               >
                 Join the Room
-              </Button>
+              </LoadingButton>
             )}
           </Grid>
         </Grid>

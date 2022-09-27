@@ -20,6 +20,7 @@ const ContextProvider = ({
 }: {
   children: React.ReactNode;
 }): JSX.Element => {
+  const [serverLoading, setServerLoading] = useState(true);
   const [stream, setStream] = useState<MediaStream>();
   const [me, setMe] = useState("");
   const [call, setCall] = useState<Call>({
@@ -68,7 +69,10 @@ const ContextProvider = ({
         console.log(error);
       });
 
-    peer.on("open", (myId) => setMe(myId));
+    peer.on("open", (myId) => {
+      setServerLoading(false);
+      setMe(myId);
+    });
 
     peer.on("connection", ({ metadata }) => {
       if ("name" in metadata) {
@@ -158,6 +162,7 @@ const ContextProvider = ({
   return (
     <SocketContext.Provider
       value={{
+        serverLoading,
         call,
         joinedRoom,
         myVideo,

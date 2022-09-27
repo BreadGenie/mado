@@ -1,6 +1,40 @@
-import { extendTheme } from "@mui/joy/styles";
+import { extendTheme as extendJoyTheme } from "@mui/joy/styles";
+import { deepmerge } from "@mui/utils";
+import { experimental_extendTheme as extendMuiTheme } from "@mui/material/styles";
 
-const madoTheme = extendTheme({
+const muiTheme = extendMuiTheme({
+  cssVarPrefix: "joy",
+  colorSchemes: {
+    light: {
+      palette: {
+        primary: {
+          main: "#171717",
+        },
+      },
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          transition: "initial",
+          borderRadius: "4px",
+          fontWeight: 600,
+          ...(ownerState.size === "medium" && {
+            minHeight: "36px",
+            fontSize: "14px",
+            paddingInline: "18px",
+          }),
+          "&:active": {
+            transform: "translateY(1px)",
+          },
+        }),
+      },
+    },
+  },
+});
+
+const joyTheme = extendJoyTheme({
   colorSchemes: {
     light: {
       palette: {
@@ -8,6 +42,7 @@ const madoTheme = extendTheme({
           solidBg: "#171717",
           solidHoverBg: "#3d3d3d",
           solidActiveBg: undefined,
+          solidDisabledBg: "#595959",
         },
         danger: {
           solidBg: "#DA0037",
@@ -54,5 +89,7 @@ const madoTheme = extendTheme({
     },
   },
 });
+
+const madoTheme = deepmerge(muiTheme, joyTheme);
 
 export default madoTheme;
