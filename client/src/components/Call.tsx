@@ -95,6 +95,18 @@ const VideoPlayer = (): JSX.Element => {
           >
             {call.name}
           </Typography>
+          {!call.isVideo && (
+            <div className={classes.avatar}>
+              <Avatar
+                style={{ fontSize: "50px" }}
+                sx={{
+                  "--Avatar-size": "120px",
+                }}
+              >
+                {call.name.charAt(0).toUpperCase()}
+              </Avatar>
+            </div>
+          )}
           <video
             playsInline
             muted={isCallerMuted}

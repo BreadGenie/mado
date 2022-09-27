@@ -26,6 +26,7 @@ const ContextProvider = ({
     isRecievedCall: false,
     from: "",
     name: "",
+    isVideo: true,
   });
 
   const [joinedRoom, setJoinedRoom] = useState(false);
@@ -69,6 +70,20 @@ const ContextProvider = ({
 
     peer.on("open", (myId) => setMe(myId));
 
+    peer.on("connection", ({ metadata }) => {
+      if ("name" in metadata) {
+        setCall((prevState) => ({
+          ...prevState,
+          name: metadata.name,
+        }));
+      } else if ("isVideo" in metadata) {
+        setCall((prevState) => ({
+          ...prevState,
+          isVideo: metadata.isVideo,
+        }));
+      }
+    });
+
     peer.on("call", (incomingCall) => {
       setCall((prevState) => ({
         ...prevState,
@@ -91,6 +106,7 @@ const ContextProvider = ({
         isRecievedCall: false,
         from: "",
         name: "",
+        isVideo: true,
       });
       userVideo.current!.srcObject = null;
     });
@@ -102,6 +118,7 @@ const ContextProvider = ({
 
   useEffect(() => {
     if (myVideo.current) myVideo.current!.srcObject = stream!;
+    peer.connect(call.from, { metadata: { isVideo } });
   }, [isVideo]);
 
   useEffect(() => {
@@ -130,13 +147,6 @@ const ContextProvider = ({
         }));
         userVideo.current!.srcObject = currentStream;
       });
-    });
-
-    peer.on("connection", ({ metadata }) => {
-      setCall((prevState) => ({
-        ...prevState,
-        name: metadata.name,
-      }));
     });
   };
 
