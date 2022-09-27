@@ -9,6 +9,7 @@ const muiTheme = extendMuiTheme({
       palette: {
         primary: {
           main: "#171717",
+          dark: "#3d3d3d",
         },
       },
     },
@@ -17,7 +18,6 @@ const muiTheme = extendMuiTheme({
     MuiButton: {
       styleOverrides: {
         root: ({ ownerState }) => ({
-          transition: "initial",
           borderRadius: "4px",
           fontWeight: 600,
           ...(ownerState.size === "medium" && {
