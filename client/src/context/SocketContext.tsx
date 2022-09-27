@@ -69,10 +69,9 @@ const ContextProvider = ({
         console.log(error);
       });
 
-    peer.on("open", (myId) => {
-      setServerLoading(false);
-      setMe(myId);
-    });
+    socket.on("connection", () => setServerLoading(false));
+
+    peer.on("open", (myId) => setMe(myId));
 
     peer.on("connection", ({ metadata }) => {
       if ("name" in metadata) {
