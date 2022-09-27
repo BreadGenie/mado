@@ -18,9 +18,6 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     flexDirection: "column",
   },
-  margin: {
-    marginBottom: "20px",
-  },
   copyButtonPadding: {
     padding: "0 20px",
   },
@@ -55,7 +52,6 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
                 Name
               </Typography>
               <TextField
-                className={classes.margin}
                 variant="soft"
                 placeholder="Name"
                 value={name}
@@ -63,6 +59,37 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
                 fullWidth
                 required
               />
+            </Grid>
+            <Grid item>
+              <Typography gutterBottom level="h6">
+                Join a Room
+              </Typography>
+              <TextField
+                variant="soft"
+                placeholder="ID to call"
+                value={roomToJoin}
+                onChange={(e) => setRoomToJoin(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item>
+              {!joinedRoom && (
+                <LoadingButton
+                  size="large"
+                  loadingPosition="start"
+                  loading={serverLoading}
+                  aria-label="Join the Room"
+                  variant="contained"
+                  color="primary"
+                  startIcon={<Phone fontSize="large" />}
+                  fullWidth
+                  onClick={() => joinRoom(roomToJoin)}
+                >
+                  Join the Room
+                </LoadingButton>
+              )}
+            </Grid>
+            <Grid item>
               <CopyToClipboard
                 text={`${window.location.href}${roomId ? "" : roomToJoin}`}
               >
@@ -79,35 +106,6 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
                   Copy Link
                 </LoadingButton>
               </CopyToClipboard>
-            </Grid>
-            <Grid item>
-              <Typography gutterBottom level="h6">
-                Join a Room
-              </Typography>
-              <TextField
-                className={classes.margin}
-                variant="soft"
-                placeholder="ID to call"
-                value={roomToJoin}
-                onChange={(e) => setRoomToJoin(e.target.value)}
-                fullWidth
-              />
-              {!joinedRoom && (
-                <LoadingButton
-                  size="large"
-                  loadingPosition="start"
-                  loading={serverLoading}
-                  aria-label="Join the Room"
-                  variant="contained"
-                  color="primary"
-                  startIcon={<Phone fontSize="large" />}
-                  fullWidth
-                  onClick={() => joinRoom(roomToJoin)}
-                  className={classes.margin}
-                >
-                  Join the Room
-                </LoadingButton>
-              )}
             </Grid>
           </Grid>
         </form>
