@@ -39,71 +39,80 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.paper} elevation={10}>
-      <form className={classes.root} noValidate autoComplete="off">
-        <Grid className={classes.gridContainer} container spacing={3}>
-          <Grid item>
-            <Typography gutterBottom level="h6">
-              Name
-            </Typography>
-            <TextField
-              className={classes.margin}
-              variant="soft"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-              required
-            />
-            <CopyToClipboard
-              text={`${window.location.href}${roomId ? "" : roomToJoin}`}
-            >
-              <LoadingButton
-                size="large"
-                loadingPosition="start"
-                loading={serverLoading}
-                color="primary"
-                variant="contained"
-                aria-label="Copy Room Link"
-                startIcon={<ContentCopy fontSize="large" />}
-                fullWidth
-              >
-                Copy Link
-              </LoadingButton>
-            </CopyToClipboard>
-          </Grid>
-          <Grid item>
-            <Typography gutterBottom level="h6">
-              Join a Room
-            </Typography>
-            <TextField
-              className={classes.margin}
-              variant="soft"
-              placeholder="ID to call"
-              value={roomToJoin}
-              onChange={(e) => setRoomToJoin(e.target.value)}
-              fullWidth
-            />
-            {!joinedRoom && (
-              <LoadingButton
-                size="large"
-                loadingPosition="start"
-                loading={serverLoading}
-                aria-label="Join the Room"
-                variant="contained"
-                color="primary"
-                startIcon={<Phone fontSize="large" />}
-                fullWidth
-                onClick={() => joinRoom(roomToJoin)}
+    <>
+      {serverLoading && (
+        <Paper className={classes.paper} elevation={10}>
+          <Typography gutterBottom level="h6">
+            Server Starting...
+          </Typography>
+        </Paper>
+      )}
+      <Paper className={classes.paper} elevation={10}>
+        <form className={classes.root} noValidate autoComplete="off">
+          <Grid className={classes.gridContainer} container spacing={3}>
+            <Grid item>
+              <Typography gutterBottom level="h6">
+                Name
+              </Typography>
+              <TextField
                 className={classes.margin}
+                variant="soft"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                fullWidth
+                required
+              />
+              <CopyToClipboard
+                text={`${window.location.href}${roomId ? "" : roomToJoin}`}
               >
-                Join the Room
-              </LoadingButton>
-            )}
+                <LoadingButton
+                  size="large"
+                  loadingPosition="start"
+                  loading={serverLoading}
+                  color="primary"
+                  variant="contained"
+                  aria-label="Copy Room Link"
+                  startIcon={<ContentCopy fontSize="large" />}
+                  fullWidth
+                >
+                  Copy Link
+                </LoadingButton>
+              </CopyToClipboard>
+            </Grid>
+            <Grid item>
+              <Typography gutterBottom level="h6">
+                Join a Room
+              </Typography>
+              <TextField
+                className={classes.margin}
+                variant="soft"
+                placeholder="ID to call"
+                value={roomToJoin}
+                onChange={(e) => setRoomToJoin(e.target.value)}
+                fullWidth
+              />
+              {!joinedRoom && (
+                <LoadingButton
+                  size="large"
+                  loadingPosition="start"
+                  loading={serverLoading}
+                  aria-label="Join the Room"
+                  variant="contained"
+                  color="primary"
+                  startIcon={<Phone fontSize="large" />}
+                  fullWidth
+                  onClick={() => joinRoom(roomToJoin)}
+                  className={classes.margin}
+                >
+                  Join the Room
+                </LoadingButton>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
-    </Paper>
+        </form>
+      </Paper>
+    </>
   );
 };
 
