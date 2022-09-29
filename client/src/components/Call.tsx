@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const VideoPlayer = (): JSX.Element => {
+const Call = (): JSX.Element => {
   const {
     isVideo,
     callEnded,
@@ -143,4 +143,4 @@ const VideoPlayer = (): JSX.Element => {
   );
 };
 
-export default VideoPlayer;
+export default Call;
