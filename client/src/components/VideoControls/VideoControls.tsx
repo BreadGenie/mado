@@ -10,17 +10,10 @@ import {
   VolumeOff,
   VolumeUp,
 } from "@mui/icons-material";
-import { makeStyles } from "@material-ui/core/styles";
 
-import { useSocketContext } from "../hooks/useSocketContext";
+import { useSocketContext } from "../../hooks/useSocketContext";
 
-const useStyles = makeStyles(() => ({
-  gridContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    padding: "10px",
-  },
-}));
+import useStyles from "./styles";
 
 const VideoControls = (): JSX.Element => {
   const classes = useStyles();

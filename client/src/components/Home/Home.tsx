@@ -1,26 +1,12 @@
 import React, { useEffect } from "react";
 import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-
-import Options from "./Options";
-import Navbar from "./Navbar";
-import HomeVideoPlayer from "./HomeVideoPlayer";
-import { useSocketContext } from "../hooks/useSocketContext";
 import { useNavigate, useParams } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-  gridContainer: {
-    padding: "0 40px",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    [theme.breakpoints.down("md")]: {
-      padding: "0",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-  },
-}));
+import Options from "./Options/Options";
+import Navbar from "../Navbar/Navbar";
+import HomeVideoPlayer from "./HomeVideoPlayer/HomeVideoPlayer";
+import { useSocketContext } from "../../hooks/useSocketContext";
+import useStyles from "./styles";
 
 const Home = (): JSX.Element => {
   const classes = useStyles();

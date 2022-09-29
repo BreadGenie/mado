@@ -1,33 +1,13 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
 import { LoadingButton } from "@mui/lab";
 import { TextField, Typography } from "@mui/joy";
 import { ContentCopy, Phone } from "@mui/icons-material";
 
-import { useSocketContext } from "../hooks/useSocketContext";
+import { useSocketContext } from "../../../hooks/useSocketContext";
 import CopyToClipboard from "react-copy-to-clipboard";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  gridContainer: {
-    padding: "20px",
-    width: "100%",
-    flexDirection: "column",
-  },
-  copyButtonPadding: {
-    padding: "0 20px",
-  },
-  paper: {
-    margin: "35px auto",
-    padding: "10px 20px",
-    border: "2px solid lightgrey",
-    borderRadius: "10px",
-  },
-}));
+import useStyles from "./styles";
 
 const Options = ({ roomId }: { roomId: string }): JSX.Element => {
   const { serverLoading, name, setName, roomName, joinedRoom, joinRoom } =

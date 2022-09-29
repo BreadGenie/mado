@@ -4,8 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { CssVarsProvider } from "@mui/joy/styles";
 import { Container } from "@mui/joy";
 
-import Home from "./components/Home";
-import Call from "./components/Call";
+import Home from "./components/Home/Home";
+import Call from "./components/Call/Call";
 
 import madoTheme from "./madoTheme";
 import { useSocketContext } from "./hooks/useSocketContext";
