@@ -33,12 +33,6 @@ const ContextProvider = ({
   const [joinedRoom, setJoinedRoom] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
 
-  const randomName = uniqueNamesGenerator({
-    dictionaries: [adjectives, animals],
-    separator: " ",
-    style: "capital",
-  });
-
   const randomRoomName = uniqueNamesGenerator({
     dictionaries: [adjectives, animals],
     separator: "",
@@ -46,7 +40,7 @@ const ContextProvider = ({
   });
 
   const [roomName, setRoomName] = useState(randomRoomName);
-  const [name, setName] = useState(randomName);
+  const [name, setName] = useState("");
 
   const [isAudio, setIsAudio] = useState(true);
   const [isVideo, setIsVideo] = useState(true);
