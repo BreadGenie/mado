@@ -81,23 +81,6 @@ const ContextProvider = ({
       }
     });
 
-    peer.on("call", (incomingCall) => {
-      setCall((prevState) => ({
-        ...prevState,
-        from: incomingCall.peer,
-        isRecievedCall: true,
-        name: incomingCall.metadata.name,
-      }));
-
-      incomingCall.answer(mediaStream.current!);
-      peer.connect(incomingCall.peer, { metadata: { name } });
-      myVideo.current!.srcObject = mediaStream.current!;
-
-      incomingCall.on("stream", (currentStream) => {
-        userVideo.current!.srcObject = currentStream;
-      });
-    });
-
     socket.on("user-disconnected", () => {
       setCall({
         isRecievedCall: false,
@@ -112,6 +95,25 @@ const ContextProvider = ({
       console.log("Error: ", err);
     });
   }, []);
+
+  useEffect(() => {
+    peer.on("call", (incomingCall) => {
+      setCall((prevState) => ({
+        ...prevState,
+        from: incomingCall.peer,
+        isRecievedCall: true,
+        name: incomingCall.metadata.name,
+      }));
+
+      incomingCall.answer(mediaStream.current!);
+      myVideo.current!.srcObject = mediaStream.current!;
+
+      incomingCall.on("stream", (currentStream) => {
+        userVideo.current!.srcObject = currentStream;
+        peer.connect(incomingCall.peer, { metadata: { name } });
+      });
+    });
+  }, [name]);
 
   useEffect(() => {
     if (myVideo.current) myVideo.current!.srcObject = stream!;
