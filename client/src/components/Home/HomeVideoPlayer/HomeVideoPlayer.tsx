@@ -4,11 +4,16 @@ import { Avatar } from "@mui/joy";
 import VideoControls from "../../VideoControls/VideoControls";
 import { useSocketContext } from "../../../hooks/useSocketContext";
 import useStyles from "./styles";
+import { useRecoilValue } from "recoil";
+import { isVideoAtom, streamAtom } from "../../../atoms";
 
 const HomeVideoPlayer = () => {
   const classes = useStyles();
 
-  const { myVideo, isVideo, stream } = useSocketContext();
+  const { myVideo } = useSocketContext();
+
+  const isVideo = useRecoilValue(isVideoAtom);
+  const stream = useRecoilValue(streamAtom);
 
   return (
     <>

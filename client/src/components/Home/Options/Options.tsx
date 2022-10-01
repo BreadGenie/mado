@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Grid, Paper } from "@material-ui/core";
 import { LoadingButton } from "@mui/lab";
 import { Typography } from "@mui/joy";
@@ -9,12 +10,54 @@ import { useSocketContext } from "../../../hooks/useSocketContext";
 import TextField from "./TextField/TextField";
 
 import useStyles from "./styles";
+import {
+  callAtom,
+  joinedRoomAtom,
+  meAtom,
+  nameAtom,
+  roomNameAtom,
+  serverLoadingAtom,
+  streamAtom,
+} from "../../../atoms";
+import { socket, peer } from "../../../utils";
 
 const Options = ({ roomId }: { roomId: string }): JSX.Element => {
-  const { serverLoading, name, setName, roomName, joinedRoom, joinRoom } =
-    useSocketContext();
+  const [joinedRoom, setJoinedRoom] = useRecoilState(joinedRoomAtom);
+  const [name, setName] = useRecoilState(nameAtom);
+  const serverLoading = useRecoilValue(serverLoadingAtom);
+  const me = useRecoilValue(meAtom);
+  const stream = useRecoilValue(streamAtom);
+  const roomName = useRecoilValue(roomNameAtom);
+  const setCall = useSetRecoilState(callAtom);
+
+  const { myVideo, userVideo } = useSocketContext();
   const [roomToJoin, setRoomToJoin] = useState(roomId || roomName);
   const classes = useStyles();
+
+  const joinRoom = (room: string): void => {
+    setJoinedRoom(true);
+
+    socket.emit("join-room", room, me);
+
+    socket.on("joined-room", () => {
+      myVideo.current!.srcObject = stream!;
+    });
+
+    socket.on("user-connected", (id) => {
+      const newCall = peer.call(id, stream!, {
+        metadata: { name },
+      });
+
+      newCall.on("stream", (currentStream) => {
+        setCall((prevState) => ({
+          ...prevState,
+          from: id,
+          isRecievedCall: true,
+        }));
+        userVideo.current!.srcObject = currentStream;
+      });
+    });
+  };
 
   return (
     <>

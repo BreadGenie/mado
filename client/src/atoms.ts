@@ -17,8 +17,9 @@ export const serverLoadingAtom = atom({
   default: true,
 });
 
-export const streamAtom: RecoilState<MediaStream> = atom({
+export const streamAtom: RecoilState<MediaStream | undefined> = atom({
   key: "stream",
+  default: undefined,
 });
 
 export const meAtom = atom({

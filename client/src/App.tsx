@@ -1,4 +1,5 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { CssVarsProvider } from "@mui/joy/styles";
@@ -8,7 +9,7 @@ import Home from "./components/Home/Home";
 import Call from "./components/Call/Call";
 
 import madoTheme from "./madoTheme";
-import { useSocketContext } from "./hooks/useSocketContext";
+import { callEndedAtom, joinedRoomAtom } from "./atoms";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -22,7 +23,8 @@ const useStyles = makeStyles(() => ({
 const App = (): JSX.Element => {
   const classes = useStyles();
 
-  const { callEnded, joinedRoom } = useSocketContext();
+  const callEnded = useRecoilValue(callEndedAtom);
+  const joinedRoom = useRecoilValue(joinedRoomAtom);
 
   return (
     <CssVarsProvider theme={madoTheme}>

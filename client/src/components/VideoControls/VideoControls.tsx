@@ -1,4 +1,5 @@
 import React from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Grid } from "@material-ui/core";
 import { IconButton } from "@mui/joy";
 import {
@@ -11,24 +12,27 @@ import {
   VolumeUp,
 } from "@mui/icons-material";
 
-import { useSocketContext } from "../../hooks/useSocketContext";
-
 import useStyles from "./styles";
+import {
+  callEndedAtom,
+  isAudioAtom,
+  isCallerMutedAtom,
+  isVideoAtom,
+  joinedRoomAtom,
+  streamAtom,
+} from "../../atoms";
 
 const VideoControls = (): JSX.Element => {
   const classes = useStyles();
 
-  const {
-    stream,
-    isAudio,
-    setIsAudio,
-    isVideo,
-    setIsVideo,
-    isCallerMuted,
-    setIsCallerMuted,
-    leaveCall,
-    joinedRoom,
-  } = useSocketContext();
+  const [isCallerMuted, setIsCallerMuted] = useRecoilState(isCallerMutedAtom);
+  const [isAudio, setIsAudio] = useRecoilState(isAudioAtom);
+  const [isVideo, setIsVideo] = useRecoilState(isVideoAtom);
+
+  const joinedRoom = useRecoilValue(joinedRoomAtom);
+  const stream = useRecoilValue(streamAtom);
+
+  const setCallEnded = useSetRecoilState(callEndedAtom);
 
   const handleAudio = (): void => {
     stream!.getAudioTracks()[0].enabled = !isAudio;
@@ -38,6 +42,11 @@ const VideoControls = (): JSX.Element => {
   const handleVideo = (): void => {
     stream!.getVideoTracks()[0].enabled = !isVideo;
     setIsVideo((prevVideo) => !prevVideo);
+  };
+
+  const leaveCall = (): void => {
+    setCallEnded(true);
+    window.location.reload();
   };
 
   return (
