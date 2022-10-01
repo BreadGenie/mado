@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Grid } from "@material-ui/core";
 import { IconButton } from "@mui/joy";
@@ -13,6 +13,7 @@ import {
 } from "@mui/icons-material";
 
 import useStyles from "./styles";
+import { useSocketContext } from "../../hooks/useSocketContext";
 import {
   callEndedAtom,
   isAudioAtom,
@@ -25,6 +26,8 @@ import {
 const VideoControls = (): JSX.Element => {
   const classes = useStyles();
 
+  const { myVideo } = useSocketContext();
+
   const [isCallerMuted, setIsCallerMuted] = useRecoilState(isCallerMutedAtom);
   const [isAudio, setIsAudio] = useRecoilState(isAudioAtom);
   const [isVideo, setIsVideo] = useRecoilState(isVideoAtom);
@@ -33,6 +36,10 @@ const VideoControls = (): JSX.Element => {
   const stream = useRecoilValue(streamAtom);
 
   const setCallEnded = useSetRecoilState(callEndedAtom);
+
+  useEffect(() => {
+    if (myVideo.current) myVideo.current!.srcObject = stream!;
+  }, [isVideo]);
 
   const handleAudio = (): void => {
     stream!.getAudioTracks()[0].enabled = !isAudio;

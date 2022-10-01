@@ -5,6 +5,7 @@ import { LoadingButton } from "@mui/lab";
 import { Typography } from "@mui/joy";
 import { ContentCopy, Phone } from "@mui/icons-material";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { useNavigate } from "react-router-dom";
 
 import { useSocketContext } from "../../../hooks/useSocketContext";
 import TextField from "./TextField/TextField";
@@ -33,10 +34,11 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
   const { myVideo, userVideo } = useSocketContext();
   const [roomToJoin, setRoomToJoin] = useState(roomId || roomName);
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const joinRoom = (room: string): void => {
     setJoinedRoom(true);
-
+    navigate("/call");
     socket.emit("join-room", room, me);
 
     socket.on("joined-room", () => {

@@ -80,10 +80,6 @@ const Call = (): JSX.Element => {
     peer.connect(call.from, { metadata: { isVideo } });
   }, [isVideo]);
 
-  useEffect(() => {
-    if (joinedRoom && myVideo.current) myVideo.current!.srcObject = stream!;
-  }, [joinedRoom]);
-
   return (
     <div className={classes.videoContainer}>
       {joinedRoom && !callEnded && (
