@@ -1,13 +1,22 @@
-import React, { createContext, useState, useRef, useEffect } from "react";
+import React, { createContext, useRef, useEffect } from "react";
 import io from "socket.io-client";
 import { Peer } from "peerjs";
-import {
-  uniqueNamesGenerator,
-  adjectives,
-  animals,
-} from "unique-names-generator";
+import { useRecoilState } from "recoil";
 
-import { Context, Call } from "../types";
+import { Context } from "../types";
+import {
+  serverLoadingAtom,
+  streamAtom,
+  meAtom,
+  callAtom,
+  joinedRoomAtom,
+  callEndedAtom,
+  roomNameAtom,
+  nameAtom,
+  isAudioAtom,
+  isVideoAtom,
+  isCallerMutedAtom,
+} from "../atoms";
 
 const SocketContext = createContext<Context | null>(null);
 
@@ -20,31 +29,20 @@ const ContextProvider = ({
 }: {
   children: React.ReactNode;
 }): JSX.Element => {
-  const [serverLoading, setServerLoading] = useState(true);
-  const [stream, setStream] = useState<MediaStream>();
-  const [me, setMe] = useState("");
-  const [call, setCall] = useState<Call>({
-    isRecievedCall: false,
-    from: "",
-    name: "",
-    isVideo: true,
-  });
+  const [serverLoading, setServerLoading] = useRecoilState(serverLoadingAtom);
+  const [stream, setStream] = useRecoilState(streamAtom);
+  const [me, setMe] = useRecoilState(meAtom);
+  const [call, setCall] = useRecoilState(callAtom);
 
-  const [joinedRoom, setJoinedRoom] = useState(false);
-  const [callEnded, setCallEnded] = useState(false);
+  const [joinedRoom, setJoinedRoom] = useRecoilState(joinedRoomAtom);
+  const [callEnded, setCallEnded] = useRecoilState(callEndedAtom);
 
-  const randomRoomName = uniqueNamesGenerator({
-    dictionaries: [adjectives, animals],
-    separator: "",
-    style: "capital",
-  });
+  const [roomName, setRoomName] = useRecoilState(roomNameAtom);
+  const [name, setName] = useRecoilState(nameAtom);
 
-  const [roomName, setRoomName] = useState(randomRoomName);
-  const [name, setName] = useState("");
-
-  const [isAudio, setIsAudio] = useState(true);
-  const [isVideo, setIsVideo] = useState(true);
-  const [isCallerMuted, setIsCallerMuted] = useState(false);
+  const [isAudio, setIsAudio] = useRecoilState(isAudioAtom);
+  const [isVideo, setIsVideo] = useRecoilState(isVideoAtom);
+  const [isCallerMuted, setIsCallerMuted] = useRecoilState(isCallerMutedAtom);
 
   const myVideo = useRef<HTMLVideoElement | null>(null);
   const userVideo = useRef<HTMLVideoElement | null>(null);
