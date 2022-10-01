@@ -1,5 +1,4 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { CssVarsProvider } from "@mui/joy/styles";
@@ -8,8 +7,10 @@ import { Container } from "@mui/joy";
 import Home from "./components/Home/Home";
 import Call from "./components/Call/Call";
 
+import useJoinedRoom from "./hooks/useJoinedRoom";
+import useCallEnded from "./hooks/useCallEnded";
+
 import madoTheme from "./madoTheme";
-import { callEndedAtom, joinedRoomAtom } from "./atoms";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -23,8 +24,8 @@ const useStyles = makeStyles(() => ({
 const App = (): JSX.Element => {
   const classes = useStyles();
 
-  const callEnded = useRecoilValue(callEndedAtom);
-  const joinedRoom = useRecoilValue(joinedRoomAtom);
+  const { callEnded } = useCallEnded();
+  const { joinedRoom } = useJoinedRoom();
 
   return (
     <CssVarsProvider theme={madoTheme}>

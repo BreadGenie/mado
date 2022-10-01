@@ -1,32 +1,33 @@
 import React, { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { Avatar, Typography } from "@mui/joy";
 
 import VideoControls from "../VideoControls/VideoControls";
-import { useSocketContext } from "../../hooks/useSocketContext";
+
 import useStyles from "./styles";
-import {
-  callAtom,
-  callEndedAtom,
-  isCallerMutedAtom,
-  isVideoAtom,
-  joinedRoomAtom,
-  nameAtom,
-  streamAtom,
-} from "../../atoms";
+
 import { peer, socket } from "../../utils";
+
+import { useSocketContext } from "../../hooks/useSocketContext";
+
+import useCall from "../../hooks/useCall";
+import useName from "../../hooks/useName";
+import useIsVideo from "../../hooks/isVideo";
+import useStream from "../../hooks/useStream";
+import useCallEnded from "../../hooks/useCallEnded";
+import useJoinedRoom from "../../hooks/useJoinedRoom";
+import useIsCallerMuted from "../../hooks/isCallerMuted";
 
 const Call = (): JSX.Element => {
   const { myVideo, userVideo } = useSocketContext();
 
-  const [call, setCall] = useRecoilState(callAtom);
+  const { call, setCall } = useCall();
+  const { callEnded } = useCallEnded();
 
-  const callEnded = useRecoilValue(callEndedAtom);
-  const isCallerMuted = useRecoilValue(isCallerMutedAtom);
-  const isVideo = useRecoilValue(isVideoAtom);
-  const stream = useRecoilValue(streamAtom);
-  const joinedRoom = useRecoilValue(joinedRoomAtom);
-  const name = useRecoilValue(nameAtom);
+  const { isCallerMuted } = useIsCallerMuted();
+  const { isVideo } = useIsVideo();
+  const { stream } = useStream();
+  const { joinedRoom } = useJoinedRoom();
+  const { name } = useName();
 
   const classes = useStyles();
 

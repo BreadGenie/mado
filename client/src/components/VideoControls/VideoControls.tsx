@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Grid } from "@material-ui/core";
 import { IconButton } from "@mui/joy";
 import {
@@ -14,28 +13,25 @@ import {
 
 import useStyles from "./styles";
 import { useSocketContext } from "../../hooks/useSocketContext";
-import {
-  callEndedAtom,
-  isAudioAtom,
-  isCallerMutedAtom,
-  isVideoAtom,
-  joinedRoomAtom,
-  streamAtom,
-} from "../../atoms";
+
+import useIsVideo from "../../hooks/isVideo";
+import useStream from "../../hooks/useStream";
+import useIsAudio from "../../hooks/useIsAudio";
+import useCallEnded from "../../hooks/useCallEnded";
+import useJoinedRoom from "../../hooks/useJoinedRoom";
+import useIsCallerMuted from "../../hooks/isCallerMuted";
 
 const VideoControls = (): JSX.Element => {
   const classes = useStyles();
 
   const { myVideo } = useSocketContext();
 
-  const [isCallerMuted, setIsCallerMuted] = useRecoilState(isCallerMutedAtom);
-  const [isAudio, setIsAudio] = useRecoilState(isAudioAtom);
-  const [isVideo, setIsVideo] = useRecoilState(isVideoAtom);
-
-  const joinedRoom = useRecoilValue(joinedRoomAtom);
-  const stream = useRecoilValue(streamAtom);
-
-  const setCallEnded = useSetRecoilState(callEndedAtom);
+  const { isCallerMuted, setIsCallerMuted } = useIsCallerMuted();
+  const { isAudio, setIsAudio } = useIsAudio();
+  const { isVideo, setIsVideo } = useIsVideo();
+  const { joinedRoom } = useJoinedRoom();
+  const { stream } = useStream();
+  const { setCallEnded } = useCallEnded();
 
   useEffect(() => {
     if (myVideo.current) myVideo.current!.srcObject = stream!;

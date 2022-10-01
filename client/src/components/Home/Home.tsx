@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
-import { useSetRecoilState } from "recoil";
 import { Grid } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 
 import Options from "./Options/Options";
 import Navbar from "../Navbar/Navbar";
 import HomeVideoPlayer from "./HomeVideoPlayer/HomeVideoPlayer";
+
 import useStyles from "./styles";
-import { meAtom, serverLoadingAtom, streamAtom } from "../../atoms";
-import { useSocketContext } from "../../hooks/useSocketContext";
+
 import { peer, socket } from "../../utils";
+
+import { useSocketContext } from "../../hooks/useSocketContext";
+
+import useMe from "../../hooks/useMe";
+import useStream from "../../hooks/useStream";
+import useServerLoading from "../../hooks/useServerLoading";
 
 const Home = (): JSX.Element => {
   const classes = useStyles();
@@ -17,9 +22,9 @@ const Home = (): JSX.Element => {
 
   const { myVideo } = useSocketContext();
 
-  const setMe = useSetRecoilState(meAtom);
-  const setStream = useSetRecoilState(streamAtom);
-  const setServerLoading = useSetRecoilState(serverLoadingAtom);
+  const { setMe } = useMe();
+  const { setStream } = useStream();
+  const { setServerLoading } = useServerLoading();
 
   useEffect(() => {
     navigator.mediaDevices

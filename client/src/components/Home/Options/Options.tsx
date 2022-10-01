@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Grid, Paper } from "@material-ui/core";
 import { LoadingButton } from "@mui/lab";
 import { Typography } from "@mui/joy";
@@ -7,29 +6,30 @@ import { ContentCopy, Phone } from "@mui/icons-material";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { useNavigate } from "react-router-dom";
 
-import { useSocketContext } from "../../../hooks/useSocketContext";
 import TextField from "./TextField/TextField";
 
 import useStyles from "./styles";
-import {
-  callAtom,
-  joinedRoomAtom,
-  meAtom,
-  nameAtom,
-  roomNameAtom,
-  serverLoadingAtom,
-  streamAtom,
-} from "../../../atoms";
+
 import { socket, peer } from "../../../utils";
 
+import { useSocketContext } from "../../../hooks/useSocketContext";
+
+import useMe from "../../../hooks/useMe";
+import useCall from "../../../hooks/useCall";
+import useName from "../../../hooks/useName";
+import useStream from "../../../hooks/useStream";
+import useRoomName from "../../../hooks/useRoomName";
+import useJoinedRoom from "../../../hooks/useJoinedRoom";
+import useServerLoading from "../../../hooks/useServerLoading";
+
 const Options = ({ roomId }: { roomId: string }): JSX.Element => {
-  const [joinedRoom, setJoinedRoom] = useRecoilState(joinedRoomAtom);
-  const [name, setName] = useRecoilState(nameAtom);
-  const serverLoading = useRecoilValue(serverLoadingAtom);
-  const me = useRecoilValue(meAtom);
-  const stream = useRecoilValue(streamAtom);
-  const roomName = useRecoilValue(roomNameAtom);
-  const setCall = useSetRecoilState(callAtom);
+  const { joinedRoom, setJoinedRoom } = useJoinedRoom();
+  const { name, setName } = useName();
+  const { serverLoading } = useServerLoading();
+  const { me } = useMe();
+  const { stream } = useStream();
+  const { roomName } = useRoomName();
+  const { setCall } = useCall();
 
   const { myVideo, userVideo } = useSocketContext();
   const [roomToJoin, setRoomToJoin] = useState(roomId || roomName);
