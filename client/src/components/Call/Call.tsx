@@ -27,6 +27,7 @@ const Call = (): JSX.Element => {
             textColor="white"
             level="h5"
             className={classes.callerName}
+            sx={{ zIndex: 2500 }}
           >
             {call.name}
           </Typography>
