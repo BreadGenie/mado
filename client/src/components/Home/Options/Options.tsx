@@ -4,17 +4,62 @@ import { LoadingButton } from "@mui/lab";
 import { Typography } from "@mui/joy";
 import { ContentCopy, Phone } from "@mui/icons-material";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { useNavigate } from "react-router-dom";
 
-import { useSocketContext } from "../../../hooks/useSocketContext";
 import TextField from "./TextField/TextField";
 
 import useStyles from "./styles";
 
+import { socket, peer } from "../../../utils";
+
+import { useSocketContext } from "../../../hooks/useSocketContext";
+
+import useMe from "../../../hooks/useMe";
+import useCall from "../../../hooks/useCall";
+import useName from "../../../hooks/useName";
+import useStream from "../../../hooks/useStream";
+import useRoomName from "../../../hooks/useRoomName";
+import useJoinedRoom from "../../../hooks/useJoinedRoom";
+import useServerLoading from "../../../hooks/useServerLoading";
+
 const Options = ({ roomId }: { roomId: string }): JSX.Element => {
-  const { serverLoading, name, setName, roomName, joinedRoom, joinRoom } =
-    useSocketContext();
+  const { joinedRoom, setJoinedRoom } = useJoinedRoom();
+  const { name, setName } = useName();
+  const { serverLoading } = useServerLoading();
+  const { me } = useMe();
+  const { stream } = useStream();
+  const { roomName } = useRoomName();
+  const { setCall } = useCall();
+
+  const { myVideo, userVideo } = useSocketContext();
   const [roomToJoin, setRoomToJoin] = useState(roomId || roomName);
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  const joinRoom = (room: string): void => {
+    setJoinedRoom(true);
+    navigate("/call");
+    socket.emit("join-room", room, me);
+
+    socket.on("joined-room", () => {
+      myVideo.current!.srcObject = stream!;
+    });
+
+    socket.on("user-connected", (id) => {
+      const newCall = peer.call(id, stream!, {
+        metadata: { name },
+      });
+
+      newCall.on("stream", (currentStream) => {
+        setCall((prevState) => ({
+          ...prevState,
+          from: id,
+          isRecievedCall: true,
+        }));
+        userVideo.current!.srcObject = currentStream;
+      });
+    });
+  };
 
   return (
     <>

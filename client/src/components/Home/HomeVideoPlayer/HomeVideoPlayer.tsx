@@ -2,13 +2,21 @@ import React from "react";
 import { Avatar } from "@mui/joy";
 
 import VideoControls from "../../VideoControls/VideoControls";
-import { useSocketContext } from "../../../hooks/useSocketContext";
+
 import useStyles from "./styles";
+
+import { useSocketContext } from "../../../hooks/useSocketContext";
+
+import useIsVideo from "../../../hooks/isVideo";
+import useStream from "../../../hooks/useStream";
 
 const HomeVideoPlayer = () => {
   const classes = useStyles();
 
-  const { myVideo, isVideo, stream } = useSocketContext();
+  const { myVideo } = useSocketContext();
+
+  const { isVideo } = useIsVideo();
+  const { stream } = useStream();
 
   return (
     <>

@@ -7,8 +7,10 @@ import { Container } from "@mui/joy";
 import Home from "./components/Home/Home";
 import Call from "./components/Call/Call";
 
+import useJoinedRoom from "./hooks/useJoinedRoom";
+import useCallEnded from "./hooks/useCallEnded";
+
 import madoTheme from "./madoTheme";
-import { useSocketContext } from "./hooks/useSocketContext";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -22,7 +24,8 @@ const useStyles = makeStyles(() => ({
 const App = (): JSX.Element => {
   const classes = useStyles();
 
-  const { callEnded, joinedRoom } = useSocketContext();
+  const { callEnded } = useCallEnded();
+  const { joinedRoom } = useJoinedRoom();
 
   return (
     <CssVarsProvider theme={madoTheme}>

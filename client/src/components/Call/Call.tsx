@@ -1,23 +1,85 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Avatar, Typography } from "@mui/joy";
 
 import VideoControls from "../VideoControls/VideoControls";
-import { useSocketContext } from "../../hooks/useSocketContext";
+
 import useStyles from "./styles";
 
+import { peer, socket } from "../../utils";
+
+import { useSocketContext } from "../../hooks/useSocketContext";
+
+import useCall from "../../hooks/useCall";
+import useName from "../../hooks/useName";
+import useIsVideo from "../../hooks/isVideo";
+import useStream from "../../hooks/useStream";
+import useCallEnded from "../../hooks/useCallEnded";
+import useJoinedRoom from "../../hooks/useJoinedRoom";
+import useIsCallerMuted from "../../hooks/isCallerMuted";
+
 const Call = (): JSX.Element => {
-  const {
-    isVideo,
-    callEnded,
-    myVideo,
-    userVideo,
-    stream,
-    joinedRoom,
-    call,
-    isCallerMuted,
-  } = useSocketContext();
+  const { myVideo, userVideo } = useSocketContext();
+
+  const { call, setCall } = useCall();
+  const { callEnded } = useCallEnded();
+
+  const { isCallerMuted } = useIsCallerMuted();
+  const { isVideo } = useIsVideo();
+  const { stream } = useStream();
+  const { joinedRoom } = useJoinedRoom();
+  const { name } = useName();
 
   const classes = useStyles();
+
+  useEffect(() => {
+    peer.on("connection", ({ metadata }) => {
+      if ("name" in metadata) {
+        setCall((prevState) => ({
+          ...prevState,
+          name: metadata.name,
+        }));
+      } else if ("isVideo" in metadata) {
+        setCall((prevState) => ({
+          ...prevState,
+          isVideo: metadata.isVideo,
+        }));
+      }
+    });
+
+    socket.on("user-disconnected", () => {
+      setCall({
+        isRecievedCall: false,
+        from: "",
+        name: "",
+        isVideo: true,
+      });
+      userVideo.current!.srcObject = null;
+    });
+  }, []);
+
+  useEffect(() => {
+    peer.on("call", (incomingCall) => {
+      setCall((prevState) => ({
+        ...prevState,
+        from: incomingCall.peer,
+        isRecievedCall: true,
+        name: incomingCall.metadata.name,
+      }));
+
+      incomingCall.answer(stream);
+      myVideo.current!.srcObject = stream!;
+
+      incomingCall.on("stream", (currentStream) => {
+        userVideo.current!.srcObject = currentStream;
+        peer.connect(incomingCall.peer, { metadata: { name } });
+      });
+    });
+  }, [name]);
+
+  useEffect(() => {
+    if (myVideo.current) myVideo.current!.srcObject = stream!;
+    peer.connect(call.from, { metadata: { isVideo } });
+  }, [isVideo]);
 
   return (
     <div className={classes.videoContainer}>

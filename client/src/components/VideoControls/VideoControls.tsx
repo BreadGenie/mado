@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { IconButton } from "@mui/joy";
 import {
@@ -11,24 +11,31 @@ import {
   VolumeUp,
 } from "@mui/icons-material";
 
+import useStyles from "./styles";
 import { useSocketContext } from "../../hooks/useSocketContext";
 
-import useStyles from "./styles";
+import useIsVideo from "../../hooks/isVideo";
+import useStream from "../../hooks/useStream";
+import useIsAudio from "../../hooks/useIsAudio";
+import useCallEnded from "../../hooks/useCallEnded";
+import useJoinedRoom from "../../hooks/useJoinedRoom";
+import useIsCallerMuted from "../../hooks/isCallerMuted";
 
 const VideoControls = (): JSX.Element => {
   const classes = useStyles();
 
-  const {
-    stream,
-    isAudio,
-    setIsAudio,
-    isVideo,
-    setIsVideo,
-    isCallerMuted,
-    setIsCallerMuted,
-    leaveCall,
-    joinedRoom,
-  } = useSocketContext();
+  const { myVideo } = useSocketContext();
+
+  const { isCallerMuted, setIsCallerMuted } = useIsCallerMuted();
+  const { isAudio, setIsAudio } = useIsAudio();
+  const { isVideo, setIsVideo } = useIsVideo();
+  const { joinedRoom } = useJoinedRoom();
+  const { stream } = useStream();
+  const { setCallEnded } = useCallEnded();
+
+  useEffect(() => {
+    if (myVideo.current) myVideo.current!.srcObject = stream!;
+  }, [isVideo]);
 
   const handleAudio = (): void => {
     stream!.getAudioTracks()[0].enabled = !isAudio;
@@ -38,6 +45,11 @@ const VideoControls = (): JSX.Element => {
   const handleVideo = (): void => {
     stream!.getVideoTracks()[0].enabled = !isVideo;
     setIsVideo((prevVideo) => !prevVideo);
+  };
+
+  const leaveCall = (): void => {
+    setCallEnded(true);
+    window.location.reload();
   };
 
   return (
