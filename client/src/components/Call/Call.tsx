@@ -11,11 +11,11 @@ import { useSocketContext } from "../../hooks/useSocketContext";
 
 import useCall from "../../hooks/useCall";
 import useName from "../../hooks/useName";
-import useIsVideo from "../../hooks/isVideo";
+import useIsVideo from "../../hooks/useIsVideo";
 import useStream from "../../hooks/useStream";
 import useCallEnded from "../../hooks/useCallEnded";
 import useJoinedRoom from "../../hooks/useJoinedRoom";
-import useIsCallerMuted from "../../hooks/isCallerMuted";
+import useIsCallerMuted from "../../hooks/useIsCallerMuted";
 
 const Call = (): JSX.Element => {
   const { myVideo, userVideo } = useSocketContext();

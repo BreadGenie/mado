@@ -7,7 +7,7 @@ import useStyles from "./styles";
 
 import { useSocketContext } from "../../../hooks/useSocketContext";
 
-import useIsVideo from "../../../hooks/isVideo";
+import useIsVideo from "../../../hooks/useIsVideo";
 import useStream from "../../../hooks/useStream";
 
 const HomeVideoPlayer = () => {

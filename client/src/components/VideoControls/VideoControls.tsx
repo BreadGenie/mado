@@ -14,12 +14,12 @@ import {
 import useStyles from "./styles";
 import { useSocketContext } from "../../hooks/useSocketContext";
 
-import useIsVideo from "../../hooks/isVideo";
+import useIsVideo from "../../hooks/useIsVideo";
 import useStream from "../../hooks/useStream";
 import useIsAudio from "../../hooks/useIsAudio";
 import useCallEnded from "../../hooks/useCallEnded";
 import useJoinedRoom from "../../hooks/useJoinedRoom";
-import useIsCallerMuted from "../../hooks/isCallerMuted";
+import useIsCallerMuted from "../../hooks/useIsCallerMuted";
 
 const VideoControls = (): JSX.Element => {
   const classes = useStyles();
