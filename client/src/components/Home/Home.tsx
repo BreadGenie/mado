@@ -36,6 +36,18 @@ const Home = (): JSX.Element => {
       .catch((error) => {
         console.log(error);
       });
+
+    navigator.mediaDevices.addEventListener("devicechange", () => {
+      navigator.mediaDevices.enumerateDevices().then((devices) => {
+        // console.log(devices);
+        devices.forEach((device) => {
+          if (device.kind === "audioinput") {
+            alert(`${device.kind}\n${device.label}`);
+            // console.log(device.label);
+          }
+        });
+      });
+    });
   }, []);
 
   socket.on("connection", () => setServerLoading(false));
