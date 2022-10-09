@@ -26,7 +26,7 @@ const Home = (): JSX.Element => {
   const { setStream } = useStream();
   const { setServerLoading } = useServerLoading();
 
-  useEffect(() => {
+  const getUserMedia = () => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
@@ -36,19 +36,15 @@ const Home = (): JSX.Element => {
       .catch((error) => {
         console.log(error);
       });
+  };
 
-    navigator.mediaDevices.addEventListener("devicechange", () => {
-      navigator.mediaDevices.enumerateDevices().then((devices) => {
-        // console.log(devices);
-        devices.forEach((device) => {
-          if (device.kind === "audioinput") {
-            alert(`${device.kind}\n${device.label}`);
-            // console.log(device.label);
-          }
-        });
-      });
-    });
+  useEffect(() => {
+    getUserMedia();
   }, []);
+
+  navigator.mediaDevices.addEventListener("devicechange", () => {
+    getUserMedia();
+  });
 
   socket.on("connection", () => setServerLoading(false));
 
