@@ -34,6 +34,7 @@ const Home = (): JSX.Element => {
         myVideo.current!.srcObject = currentStream;
       })
       .catch((error) => {
+        alert(error);
         console.log(error);
       });
   }, []);
