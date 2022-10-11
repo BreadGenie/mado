@@ -37,7 +37,7 @@ const Home = (): JSX.Element => {
         alert(error);
         console.log(error);
       });
-  }, []);
+  }, [myVideo, setStream]);
 
   socket.on("connection", () => setServerLoading(false));
 
