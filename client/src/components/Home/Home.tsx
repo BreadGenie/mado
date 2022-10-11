@@ -27,6 +27,7 @@ const Home = (): JSX.Element => {
   const { setServerLoading } = useServerLoading();
 
   useEffect(() => {
+    alert("aaaaa");
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
