@@ -5,6 +5,7 @@ import { Typography } from "@mui/joy";
 import { ContentCopy, Phone } from "@mui/icons-material";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 import TextField from "./TextField/TextField";
 
@@ -35,6 +36,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
   const [roomToJoin, setRoomToJoin] = useState(roomId || roomName);
   const classes = useStyles();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const joinRoom = (room: string): void => {
     setJoinedRoom(true);
@@ -124,6 +126,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
                 aria-label="Copy Room Link"
                 startIcon={<ContentCopy fontSize="large" />}
                 fullWidth
+                onClick={() => enqueueSnackbar("Room Link copied to clipboard")}
               >
                 Copy Link
               </LoadingButton>
