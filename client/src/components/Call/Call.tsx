@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Avatar, Typography } from "@mui/joy";
+import { useSnackbar } from "notistack";
 
 import VideoControls from "../VideoControls/VideoControls";
 
@@ -31,6 +32,8 @@ const Call = (): JSX.Element => {
 
   const classes = useStyles();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
     peer.on("connection", ({ metadata }) => {
       if ("name" in metadata) {
@@ -38,6 +41,7 @@ const Call = (): JSX.Element => {
           ...prevState,
           name: metadata.name,
         }));
+        enqueueSnackbar(`${metadata.name} has joined the call`);
       } else if ("isVideo" in metadata) {
         setCall((prevState) => ({
           ...prevState,

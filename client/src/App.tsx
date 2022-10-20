@@ -11,6 +11,7 @@ import useJoinedRoom from "./hooks/useJoinedRoom";
 import useCallEnded from "./hooks/useCallEnded";
 
 import madoTheme from "./madoTheme";
+import { SnackbarProvider } from "notistack";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -29,24 +30,26 @@ const App = (): JSX.Element => {
 
   return (
     <CssVarsProvider theme={madoTheme}>
-      <BrowserRouter>
-        <Container className={classes.wrapper}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/:id" element={<Home />} />
-            <Route
-              path="/call"
-              element={
-                joinedRoom && !callEnded ? (
-                  <Call />
-                ) : (
-                  <Navigate replace to="/" />
-                )
-              }
-            />
-          </Routes>
-        </Container>
-      </BrowserRouter>
+      <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
+        <BrowserRouter>
+          <Container className={classes.wrapper}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/:id" element={<Home />} />
+              <Route
+                path="/call"
+                element={
+                  joinedRoom && !callEnded ? (
+                    <Call />
+                  ) : (
+                    <Navigate replace to="/" />
+                  )
+                }
+              />
+            </Routes>
+          </Container>
+        </BrowserRouter>
+      </SnackbarProvider>
     </CssVarsProvider>
   );
 };
