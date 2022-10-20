@@ -30,7 +30,7 @@ const App = (): JSX.Element => {
 
   return (
     <CssVarsProvider theme={madoTheme}>
-      <SnackbarProvider maxSnack={3} autoHideDuration={2000}>
+      <SnackbarProvider maxSnack={3} autoHideDuration={2000} preventDuplicate>
         <BrowserRouter>
           <Container className={classes.wrapper}>
             <Routes>
