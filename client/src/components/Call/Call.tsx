@@ -34,51 +34,47 @@ const Call = (): JSX.Element => {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect(() => {
-    peer.on("connection", ({ metadata }) => {
-      if ("name" in metadata) {
-        setCall((prevState) => ({
-          ...prevState,
-          name: metadata.name,
-        }));
-        enqueueSnackbar(`${metadata.name} has joined the call`);
-      } else if ("isVideo" in metadata) {
-        setCall((prevState) => ({
-          ...prevState,
-          isVideo: metadata.isVideo,
-        }));
-      }
-    });
-
-    socket.on("user-disconnected", () => {
-      setCall({
-        isRecievedCall: false,
-        from: "",
-        name: "",
-        isVideo: true,
-      });
-      userVideo.current!.srcObject = null;
-    });
-  }, []);
-
-  useEffect(() => {
-    peer.on("call", (incomingCall) => {
+  peer.on("connection", ({ metadata }) => {
+    if ("name" in metadata) {
       setCall((prevState) => ({
         ...prevState,
-        from: incomingCall.peer,
-        isRecievedCall: true,
-        name: incomingCall.metadata.name,
+        name: metadata.name,
       }));
+      enqueueSnackbar(`${metadata.name} has joined the call`);
+    } else if ("isVideo" in metadata) {
+      setCall((prevState) => ({
+        ...prevState,
+        isVideo: metadata.isVideo,
+      }));
+    }
+  });
 
-      incomingCall.answer(stream);
-      myVideo.current!.srcObject = stream!;
-
-      incomingCall.on("stream", (currentStream) => {
-        userVideo.current!.srcObject = currentStream;
-        peer.connect(incomingCall.peer, { metadata: { name } });
-      });
+  socket.on("user-disconnected", () => {
+    setCall({
+      isRecievedCall: false,
+      from: "",
+      name: "",
+      isVideo: true,
     });
-  }, [name]);
+    userVideo.current!.srcObject = null;
+  });
+
+  peer.on("call", (incomingCall) => {
+    setCall((prevState) => ({
+      ...prevState,
+      from: incomingCall.peer,
+      isRecievedCall: true,
+      name: incomingCall.metadata.name,
+    }));
+
+    incomingCall.answer(stream);
+    myVideo.current!.srcObject = stream!;
+
+    incomingCall.on("stream", (currentStream) => {
+      userVideo.current!.srcObject = currentStream;
+      peer.connect(incomingCall.peer, { metadata: { name } });
+    });
+  });
 
   useEffect(() => {
     if (myVideo.current) myVideo.current!.srcObject = stream!;
