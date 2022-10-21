@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Typography } from "@mui/joy";
 import { useSnackbar } from "notistack";
 
@@ -33,6 +33,14 @@ const Call = (): JSX.Element => {
   const classes = useStyles();
 
   const { enqueueSnackbar } = useSnackbar();
+
+  const [showControls, setShowControls] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowControls(false);
+    }, 3000);
+  }, [showControls]);
 
   peer.on("connection", ({ metadata }) => {
     if ("name" in metadata) {
@@ -82,7 +90,10 @@ const Call = (): JSX.Element => {
   }, [isVideo]);
 
   return (
-    <div className={classes.videoContainer}>
+    <div
+      className={classes.videoContainer}
+      onMouseMove={() => setShowControls(true)}
+    >
       {joinedRoom && !callEnded && (
         <>
           <Typography
@@ -113,7 +124,7 @@ const Call = (): JSX.Element => {
             className={classes.remoteVideo}
           />
           <div className={classes.videoControls}>
-            <VideoControls />
+            <VideoControls showControls={showControls} />
           </div>
         </>
       )}

@@ -21,7 +21,11 @@ import useCallEnded from "../../hooks/useCallEnded";
 import useJoinedRoom from "../../hooks/useJoinedRoom";
 import useIsCallerMuted from "../../hooks/useIsCallerMuted";
 
-const VideoControls = (): JSX.Element => {
+const VideoControls = ({
+  showControls,
+}: {
+  showControls: boolean;
+}): JSX.Element => {
   const classes = useStyles();
 
   const { myVideo } = useSocketContext();
@@ -53,86 +57,90 @@ const VideoControls = (): JSX.Element => {
   };
 
   return (
-    <Grid container spacing={2} className={classes.gridContainer}>
-      {stream && isVideo ? (
-        <Grid item>
-          <IconButton
-            aria-label="Turn video camera off"
-            variant="solid"
-            color="primary"
-            size="lg"
-            onClick={handleVideo}
-          >
-            <Videocam />
-          </IconButton>
-        </Grid>
-      ) : (
-        <Grid item>
-          <IconButton
-            aria-label="Turn video camera on"
-            variant="solid"
-            color="danger"
-            size="lg"
-            onClick={handleVideo}
-          >
-            <VideocamOff />
-          </IconButton>
+    <>
+      {showControls && (
+        <Grid container spacing={2} className={classes.gridContainer}>
+          {stream && isVideo ? (
+            <Grid item>
+              <IconButton
+                aria-label="Turn video camera off"
+                variant="solid"
+                color="primary"
+                size="lg"
+                onClick={handleVideo}
+              >
+                <Videocam />
+              </IconButton>
+            </Grid>
+          ) : (
+            <Grid item>
+              <IconButton
+                aria-label="Turn video camera on"
+                variant="solid"
+                color="danger"
+                size="lg"
+                onClick={handleVideo}
+              >
+                <VideocamOff />
+              </IconButton>
+            </Grid>
+          )}
+          {stream && isAudio ? (
+            <Grid item>
+              <IconButton
+                aria-label="Turn mic off"
+                variant="solid"
+                color="primary"
+                size="lg"
+                onClick={handleAudio}
+              >
+                <Mic />
+              </IconButton>
+            </Grid>
+          ) : (
+            <Grid item>
+              <IconButton
+                aria-label="Turn mic on"
+                variant="solid"
+                color="danger"
+                size="lg"
+                onClick={handleAudio}
+              >
+                <MicOff />
+              </IconButton>
+            </Grid>
+          )}
+          {joinedRoom && (
+            <>
+              <Grid item>
+                <IconButton
+                  aria-label="Mute Call"
+                  variant="solid"
+                  size="lg"
+                  color={isCallerMuted ? "danger" : "primary"}
+                  onClick={() =>
+                    setIsCallerMuted((isCallerMuted) => !isCallerMuted)
+                  }
+                >
+                  {isCallerMuted ? <VolumeOff /> : <VolumeUp />}
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <IconButton
+                  aria-label="Hang Up"
+                  variant="solid"
+                  color="danger"
+                  size="lg"
+                  onClick={leaveCall}
+                >
+                  <CallEnd />
+                </IconButton>
+              </Grid>
+            </>
+          )}
         </Grid>
       )}
-      {stream && isAudio ? (
-        <Grid item>
-          <IconButton
-            aria-label="Turn mic off"
-            variant="solid"
-            color="primary"
-            size="lg"
-            onClick={handleAudio}
-          >
-            <Mic />
-          </IconButton>
-        </Grid>
-      ) : (
-        <Grid item>
-          <IconButton
-            aria-label="Turn mic on"
-            variant="solid"
-            color="danger"
-            size="lg"
-            onClick={handleAudio}
-          >
-            <MicOff />
-          </IconButton>
-        </Grid>
-      )}
-      {joinedRoom && (
-        <>
-          <Grid item>
-            <IconButton
-              aria-label="Mute Call"
-              variant="solid"
-              size="lg"
-              color={isCallerMuted ? "danger" : "primary"}
-              onClick={() =>
-                setIsCallerMuted((isCallerMuted) => !isCallerMuted)
-              }
-            >
-              {isCallerMuted ? <VolumeOff /> : <VolumeUp />}
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <IconButton
-              aria-label="Hang Up"
-              variant="solid"
-              color="danger"
-              size="lg"
-              onClick={leaveCall}
-            >
-              <CallEnd />
-            </IconButton>
-          </Grid>
-        </>
-      )}
-    </Grid>
+    </>
   );
 };
 

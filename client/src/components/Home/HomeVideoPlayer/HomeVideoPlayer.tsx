@@ -39,7 +39,7 @@ const HomeVideoPlayer = () => {
             />
           )}
           <div className={classes.videoControls}>
-            <VideoControls />
+            <VideoControls showControls />
           </div>
         </div>
       )}
