@@ -45,7 +45,7 @@ const App = (): JSX.Element => {
               <Route path="/" element={<Home />} />
               <Route path="/:id" element={<Home />} />
               <Route
-                path="/call"
+                path="/call/:roomId"
                 element={
                   joinedRoom && !callEnded ? (
                     <Call />

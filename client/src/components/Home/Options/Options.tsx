@@ -40,7 +40,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
 
   const joinRoom = (room: string): void => {
     setJoinedRoom(true);
-    navigate("/call");
+    navigate(`/call/${roomToJoin}`);
     socket.emit("join-room", room, me);
 
     socket.on("joined-room", () => {
