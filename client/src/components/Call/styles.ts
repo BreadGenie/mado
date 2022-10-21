@@ -63,4 +63,9 @@ export default makeStyles((theme) => ({
     bottom: "5%",
     maxWidth: "25vw",
   },
+  videoOptions: {
+    position: "fixed",
+    top: "5%",
+    right: "5%",
+  },
 }));

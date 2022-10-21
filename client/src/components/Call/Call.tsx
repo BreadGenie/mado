@@ -17,6 +17,7 @@ import useStream from "../../hooks/useStream";
 import useCallEnded from "../../hooks/useCallEnded";
 import useJoinedRoom from "../../hooks/useJoinedRoom";
 import useIsCallerMuted from "../../hooks/useIsCallerMuted";
+import VideoOptions from "./VideoOptions";
 
 const Call = (): JSX.Element => {
   const { myVideo, userVideo } = useSocketContext();
@@ -116,6 +117,9 @@ const Call = (): JSX.Element => {
               </Avatar>
             </div>
           )}
+          <div className={classes.videoOptions}>
+            <VideoOptions showControls={showControls} />
+          </div>
           <video
             playsInline
             muted={isCallerMuted}
