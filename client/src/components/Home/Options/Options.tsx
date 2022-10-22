@@ -39,6 +39,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
   const { enqueueSnackbar } = useSnackbar();
 
   const joinRoom = (room: string): void => {
+    localStorage.setItem("userName", String(name));
     setJoinedRoom(true);
     navigate(`/call/${roomToJoin}`);
     socket.emit("join-room", room, me);

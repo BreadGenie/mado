@@ -54,7 +54,7 @@ export const roomNameAtom = atom({
 
 export const nameAtom = atom({
   key: "name",
-  default: "",
+  default: localStorage.getItem("userName") || "",
 });
 
 export const isAudioAtom = atom({
