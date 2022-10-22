@@ -42,7 +42,7 @@ const VideoOptions = ({
               setOptionsOpened(true);
             }}
           >
-            <MoreVert />
+            <MoreVert style={{ fontSize: "30px" }} />
           </IconButton>
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
             <MenuItem onClick={handleClose}>
