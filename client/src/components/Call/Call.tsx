@@ -39,7 +39,7 @@ const Call = (): JSX.Element => {
 
   useEffect(() => {
     const controlHideTimer = setTimeout(() => {
-      setShowControls(false);
+      if (showControls) setShowControls(false);
     }, 3000);
 
     return () => clearTimeout(controlHideTimer);
