@@ -38,9 +38,11 @@ const Call = (): JSX.Element => {
   const [showControls, setShowControls] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const controlHideTimer = setTimeout(() => {
       setShowControls(false);
     }, 3000);
+
+    return () => clearTimeout(controlHideTimer);
   }, [showControls]);
 
   peer.on("connection", ({ metadata }) => {
