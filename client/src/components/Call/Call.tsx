@@ -36,14 +36,15 @@ const Call = (): JSX.Element => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [showControls, setShowControls] = useState(true);
+  const [optionsOpened, setOptionsOpened] = useState(false);
 
   useEffect(() => {
     const controlHideTimer = setTimeout(() => {
-      if (showControls) setShowControls(false);
+      if (showControls && !optionsOpened) setShowControls(false);
     }, 3000);
 
     return () => clearTimeout(controlHideTimer);
-  }, [showControls]);
+  }, [showControls, optionsOpened]);
 
   peer.on("connection", ({ metadata }) => {
     if ("name" in metadata) {
@@ -120,7 +121,10 @@ const Call = (): JSX.Element => {
             </div>
           )}
           <div className={classes.videoOptions}>
-            <VideoOptions showControls={showControls} />
+            <VideoOptions
+              showControls={showControls}
+              setOptionsOpened={setOptionsOpened}
+            />
           </div>
           <video
             playsInline
