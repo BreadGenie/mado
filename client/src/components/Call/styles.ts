@@ -67,5 +67,6 @@ export default makeStyles((theme) => ({
     position: "fixed",
     top: "5%",
     right: "5%",
+    zIndex: 1,
   },
 }));
