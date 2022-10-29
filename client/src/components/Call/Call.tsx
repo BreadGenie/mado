@@ -10,26 +10,22 @@ import { peer, socket } from "../../utils";
 
 import { useSocketContext } from "../../hooks/useSocketContext";
 
-import useCall from "../../hooks/useCall";
-import useName from "../../hooks/useName";
-import useIsVideo from "../../hooks/useIsVideo";
-import useStream from "../../hooks/useStream";
-import useCallEnded from "../../hooks/useCallEnded";
-import useJoinedRoom from "../../hooks/useJoinedRoom";
-import useIsCallerMuted from "../../hooks/useIsCallerMuted";
+import useCallStates from "../../hooks/useCallStates";
 import VideoOptions from "./VideoOptions";
 
 const Call = (): JSX.Element => {
   const { myVideo, userVideo } = useSocketContext();
 
-  const { call, setCall } = useCall();
-  const { callEnded } = useCallEnded();
-
-  const { isCallerMuted } = useIsCallerMuted();
-  const { isVideo } = useIsVideo();
-  const { stream } = useStream();
-  const { joinedRoom } = useJoinedRoom();
-  const { name } = useName();
+  const {
+    call,
+    name,
+    stream,
+    isVideo,
+    setCall,
+    callEnded,
+    isCallerMuted,
+    joinedRoom,
+  } = useCallStates();
 
   const classes = useStyles();
 

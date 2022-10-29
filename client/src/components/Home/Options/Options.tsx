@@ -15,22 +15,20 @@ import { socket, peer } from "../../../utils";
 
 import { useSocketContext } from "../../../hooks/useSocketContext";
 
-import useMe from "../../../hooks/useMe";
-import useCall from "../../../hooks/useCall";
-import useName from "../../../hooks/useName";
-import useStream from "../../../hooks/useStream";
-import useRoomName from "../../../hooks/useRoomName";
-import useJoinedRoom from "../../../hooks/useJoinedRoom";
-import useServerLoading from "../../../hooks/useServerLoading";
+import useCallStates from "../../../hooks/useCallStates";
 
 const Options = ({ roomId }: { roomId: string }): JSX.Element => {
-  const { joinedRoom, setJoinedRoom } = useJoinedRoom();
-  const { name, setName } = useName();
-  const { serverLoading } = useServerLoading();
-  const { me } = useMe();
-  const { stream } = useStream();
-  const { roomName } = useRoomName();
-  const { setCall } = useCall();
+  const {
+    me,
+    name,
+    setName,
+    stream,
+    setCall,
+    roomName,
+    joinedRoom,
+    setJoinedRoom,
+    serverLoading,
+  } = useCallStates();
 
   const { myVideo, userVideo } = useSocketContext();
   const [roomToJoin, setRoomToJoin] = useState(roomId || roomName);

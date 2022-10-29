@@ -7,8 +7,7 @@ import { Container } from "@mui/joy";
 import Home from "./components/Home/Home";
 import Call from "./components/Call/Call";
 
-import useJoinedRoom from "./hooks/useJoinedRoom";
-import useCallEnded from "./hooks/useCallEnded";
+import useCallStates from "./hooks/useCallStates";
 
 import madoTheme from "./madoTheme";
 import { SnackbarProvider } from "notistack";
@@ -25,8 +24,7 @@ const useStyles = makeStyles(() => ({
 const App = (): JSX.Element => {
   const classes = useStyles();
 
-  const { callEnded } = useCallEnded();
-  const { joinedRoom } = useJoinedRoom();
+  const { callEnded, joinedRoom } = useCallStates();
 
   return (
     <CssVarsProvider theme={madoTheme}>

@@ -11,10 +11,7 @@ import useStyles from "./styles";
 import { peer, socket } from "../../utils";
 
 import { useSocketContext } from "../../hooks/useSocketContext";
-
-import useMe from "../../hooks/useMe";
-import useStream from "../../hooks/useStream";
-import useServerLoading from "../../hooks/useServerLoading";
+import useCallStates from "../../hooks/useCallStates";
 
 const Home = (): JSX.Element => {
   const classes = useStyles();
@@ -22,9 +19,7 @@ const Home = (): JSX.Element => {
 
   const { myVideo } = useSocketContext();
 
-  const { setMe } = useMe();
-  const { setStream } = useStream();
-  const { setServerLoading } = useServerLoading();
+  const { setMe, setStream, setServerLoading } = useCallStates();
 
   useEffect(() => {
     navigator.mediaDevices

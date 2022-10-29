@@ -6,17 +6,14 @@ import VideoControls from "../../VideoControls/VideoControls";
 import useStyles from "./styles";
 
 import { useSocketContext } from "../../../hooks/useSocketContext";
-
-import useIsVideo from "../../../hooks/useIsVideo";
-import useStream from "../../../hooks/useStream";
+import useCallStates from "../../../hooks/useCallStates";
 
 const HomeVideoPlayer = () => {
   const classes = useStyles();
 
   const { myVideo } = useSocketContext();
 
-  const { isVideo } = useIsVideo();
-  const { stream } = useStream();
+  const { stream, isVideo } = useCallStates();
 
   return (
     <>
