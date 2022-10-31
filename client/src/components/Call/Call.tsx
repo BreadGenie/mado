@@ -58,11 +58,15 @@ const Call = (): JSX.Element => {
   });
 
   socket.on("user-disconnected", () => {
-    setCall({
-      isRecievedCall: false,
-      from: "",
-      name: "",
-      isVideo: true,
+    setCall((prevState) => {
+      if (prevState.name)
+        enqueueSnackbar(`${prevState.name} has left the call`);
+      return {
+        isRecievedCall: false,
+        from: "",
+        name: "",
+        isVideo: true,
+      };
     });
     userVideo.current!.srcObject = null;
   });
