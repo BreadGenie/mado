@@ -111,7 +111,7 @@ const Call = (): JSX.Element => {
           {!call.isVideo && (
             <div className={classes.avatar}>
               <Avatar
-                style={{ fontSize: "50px" }}
+                style={{ fontSize: "50px", paddingTop: "15px" }}
                 sx={{
                   "--Avatar-size": "120px",
                 }}
