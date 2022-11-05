@@ -59,56 +59,28 @@ const VideoControls = ({
     <>
       {showControls && (
         <Grid container spacing={2} className={classes.gridContainer}>
-          {stream && isVideo ? (
-            <Grid item>
-              <IconButton
-                aria-label="Turn video camera off"
-                variant="solid"
-                color="primary"
-                size="lg"
-                onClick={handleVideo}
-              >
-                <Videocam />
-              </IconButton>
-            </Grid>
-          ) : (
-            <Grid item>
-              <IconButton
-                aria-label="Turn video camera on"
-                variant="solid"
-                color="danger"
-                size="lg"
-                onClick={handleVideo}
-              >
-                <VideocamOff />
-              </IconButton>
-            </Grid>
-          )}
-          {stream && isAudio ? (
-            <Grid item>
-              <IconButton
-                aria-label="Turn mic off"
-                variant="solid"
-                color="primary"
-                size="lg"
-                onClick={handleAudio}
-              >
-                <Mic />
-              </IconButton>
-            </Grid>
-          ) : (
-            <Grid item>
-              <IconButton
-                aria-label="Turn mic on"
-                variant="solid"
-                color="danger"
-                size="lg"
-                onClick={handleAudio}
-              >
-                <MicOff />
-              </IconButton>
-            </Grid>
-          )}
+          <Grid item>
+            <IconButton
+              aria-label="Turn video camera on/off"
+              variant="solid"
+              color={stream && isVideo ? "primary" : "danger"}
+              size="lg"
+              onClick={handleVideo}
+            >
+              {stream && isVideo ? <Videocam /> : <VideocamOff />}
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <IconButton
+              aria-label="Turn mic on/off"
+              variant="solid"
+              color={stream && isAudio ? "primary" : "danger"}
+              size="lg"
+              onClick={handleAudio}
+            >
+              {stream && isAudio ? <Mic /> : <MicOff />}
+            </IconButton>
+          </Grid>
           {joinedRoom && (
             <>
               <Grid item>
