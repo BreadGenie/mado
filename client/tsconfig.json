@@ -16,7 +16,7 @@
     "alwaysStrict": true,
     "skipLibCheck": false,
     "esModuleInterop": false,
-    "strict": true,
+    // "strict": true, // todo fix this
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
