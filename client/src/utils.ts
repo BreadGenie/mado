@@ -2,7 +2,7 @@ import io from "socket.io-client";
 import { Peer } from "peerjs";
 
 export const socket = io(
-  import.meta.env.REACT_APP_SERVER_URL ?? "http://localhost:5000/"
+  import.meta.env.VITE_SERVER_URL ?? "http://localhost:5000/"
 );
 
 export const peer = new Peer();
