@@ -22,15 +22,15 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.4.0",
-    "react-scripts": "5.0.1",
     "recoil": "^0.7.5",
     "socket.io-client": "^4.5.2",
     "unique-names-generator": "^4.7.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
@@ -61,6 +61,7 @@
     "@types/react-dom": "^17.0.17",
     "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@typescript-eslint/parser": "^5.37.0",
+    "@vitejs/plugin-react": "^2.2.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
@@ -73,6 +74,9 @@
     "prettier": "^2.7.1",
     "source-map-loader": "^4.0.0",
     "ts-loader": "^9.3.1",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.3",
+    "vite": "^3.2.2",
+    "vite-plugin-svgr": "^2.2.2",
+    "vite-tsconfig-paths": "^3.5.2"
   }
 }
