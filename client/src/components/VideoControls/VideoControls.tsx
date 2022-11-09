@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import { Grid } from "@material-ui/core";
 import { IconButton } from "@mui/joy";
 import {
@@ -110,17 +111,19 @@ const VideoControls = ({
           </Grid>
           {joinedRoom && (
             <>
-              <Grid item>
-                <IconButton
-                  aria-label="Share Screen"
-                  variant="solid"
-                  size="lg"
-                  color={isScreenShare ? "danger" : "primary"}
-                  onClick={shareScreen}
-                >
-                  {isScreenShare ? <CancelPresentation /> : <PresentToAll />}
-                </IconButton>
-              </Grid>
+              {!isMobile && (
+                <Grid item>
+                  <IconButton
+                    aria-label="Share Screen"
+                    variant="solid"
+                    size="lg"
+                    color={isScreenShare ? "danger" : "primary"}
+                    onClick={shareScreen}
+                  >
+                    {isScreenShare ? <CancelPresentation /> : <PresentToAll />}
+                  </IconButton>
+                </Grid>
+              )}
               <Grid item>
                 <IconButton
                   aria-label="Mute Call"
