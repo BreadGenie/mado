@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import { IconButton } from "@mui/joy";
 import {
-  Videocam,
-  VideocamOff,
   Mic,
   MicOff,
   CallEnd,
-  VolumeOff,
   VolumeUp,
+  Videocam,
+  VolumeOff,
+  VideocamOff,
+  PresentToAll,
+  CancelPresentation,
 } from "@mui/icons-material";
 
 import useStyles from "./styles";
@@ -22,7 +24,9 @@ const VideoControls = ({
 }): JSX.Element => {
   const classes = useStyles();
 
-  const { myVideo } = useSocketContext();
+  const [isScreenShare, setIsScreenShare] = useState(false);
+
+  const { myVideo, callRef } = useSocketContext();
 
   const {
     stream,
@@ -39,6 +43,29 @@ const VideoControls = ({
   useEffect(() => {
     if (myVideo.current) myVideo.current!.srcObject = stream!;
   }, [isVideo]);
+
+  const shareScreen = () => {
+    setIsScreenShare((isScreenShare) => {
+      if (!isScreenShare && callRef.current)
+        navigator.mediaDevices.getDisplayMedia().then((screenCapture) => {
+          // replace stream with screen capture
+          const videoTrack = screenCapture.getVideoTracks()[0];
+          const sender = callRef
+            .current!.peerConnection.getSenders()
+            .find((s) => s.track!.kind === videoTrack.kind);
+          sender?.replaceTrack(videoTrack);
+        });
+      else if (isScreenShare) {
+        // replace screen capture with stream
+        const videoTrack = stream!.getVideoTracks()[0];
+        const sender = callRef
+          .current!.peerConnection.getSenders()
+          .find((s) => s.track!.kind === videoTrack.kind);
+        sender?.replaceTrack(videoTrack);
+      }
+      return !isScreenShare;
+    });
+  };
 
   const handleAudio = (): void => {
     stream!.getAudioTracks()[0].enabled = !isAudio;
@@ -83,6 +110,17 @@ const VideoControls = ({
           </Grid>
           {joinedRoom && (
             <>
+              <Grid item>
+                <IconButton
+                  aria-label="Share Screen"
+                  variant="solid"
+                  size="lg"
+                  color={isScreenShare ? "danger" : "primary"}
+                  onClick={shareScreen}
+                >
+                  {isScreenShare ? <CancelPresentation /> : <PresentToAll />}
+                </IconButton>
+              </Grid>
               <Grid item>
                 <IconButton
                   aria-label="Mute Call"

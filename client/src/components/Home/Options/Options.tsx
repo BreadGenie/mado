@@ -30,7 +30,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
     serverLoading,
   } = useCallStates();
 
-  const { myVideo, userVideo } = useSocketContext();
+  const { myVideo, userVideo, callRef } = useSocketContext();
   const [roomToJoin, setRoomToJoin] = useState(roomId || roomName);
   const classes = useStyles();
   const navigate = useNavigate();
@@ -50,6 +50,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
       const newCall = peer.call(id, stream!, {
         metadata: { name },
       });
+      callRef.current = newCall;
 
       newCall.on("stream", (currentStream) => {
         setCall((prevState) => ({

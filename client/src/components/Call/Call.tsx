@@ -14,7 +14,7 @@ import useCallStates from "../../hooks/useCallStates";
 import VideoOptions from "./VideoOptions";
 
 const Call = (): JSX.Element => {
-  const { myVideo, userVideo } = useSocketContext();
+  const { myVideo, userVideo, callRef } = useSocketContext();
 
   const {
     call,
@@ -61,6 +61,8 @@ const Call = (): JSX.Element => {
     setCall((prevState) => {
       if (prevState.name)
         enqueueSnackbar(`${prevState.name} has left the call`);
+      callRef.current = null;
+
       return {
         isRecievedCall: false,
         from: "",
@@ -72,6 +74,8 @@ const Call = (): JSX.Element => {
   });
 
   peer.on("call", (incomingCall) => {
+    callRef.current = incomingCall;
+
     setCall((prevState) => ({
       ...prevState,
       from: incomingCall.peer,
