@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { isMobile } from "react-device-detect";
 import { Grid } from "@material-ui/core";
 import { IconButton } from "@mui/joy";
@@ -27,7 +27,7 @@ const VideoControls = ({
 
   const [isScreenShare, setIsScreenShare] = useState(false);
 
-  const { myVideo, callRef } = useSocketContext();
+  const { callRef } = useSocketContext();
 
   const {
     stream,
@@ -40,10 +40,6 @@ const VideoControls = ({
     isCallerMuted,
     setIsCallerMuted,
   } = useCallStates();
-
-  useEffect(() => {
-    if (myVideo.current) myVideo.current!.srcObject = stream!;
-  }, [isVideo]);
 
   const shareScreen = () => {
     setIsScreenShare((isScreenShare) => {
