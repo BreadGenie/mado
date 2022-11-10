@@ -95,6 +95,7 @@ const Call = (): JSX.Element => {
   useEffect(() => {
     if (myVideo.current) myVideo.current!.srcObject = stream!;
     peer.connect(call.from, { metadata: { isVideo } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isVideo]);
 
   return (

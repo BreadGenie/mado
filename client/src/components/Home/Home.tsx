@@ -31,6 +31,7 @@ const Home = (): JSX.Element => {
       .catch((error) => {
         console.log(error);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   socket.on("connection", () => setServerLoading(false));
