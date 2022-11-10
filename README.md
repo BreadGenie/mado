@@ -9,10 +9,10 @@
   <p>
     <h1>
       Mado
-    </h2>
+    </h1>
     <b>
       A Peer to Peer Video Chat App 
-    </h2>
+    </b>
   </p>
   <p>
 
@@ -21,3 +21,61 @@
 
   </p>
 </div>
+
+
+![Screenshot from 2022-11-10 22-55-00](https://user-images.githubusercontent.com/63963181/201164680-55942418-d999-4233-b373-24b909a07fa2.png)
+
+
+## Features
+
+- Secure Peer-to-Peer Video calls with very low latency
+- Screen sharing
+- Audio only calls
+
+## Development
+
+Fork this repo and clone it to your local machine.
+
+```sh
+git clone https://github.com/<your-username>/mado.git
+```
+
+### Server
+
+Go to the server folder
+
+```sh
+cd mado/server
+```
+
+Install dependencies
+
+```sh
+npm i
+```
+
+Start the server
+
+```sh
+npm start
+```
+
+### Client
+
+Go to the client folder
+
+```sh
+cd mado/client
+```
+
+Install dependencies
+
+```sh
+npm i
+```
+
+Start dev server
+
+```sh
+npm start
+```
