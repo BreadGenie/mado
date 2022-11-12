@@ -6,7 +6,7 @@ import VideoControls from "../VideoControls/VideoControls";
 
 import useStyles from "./styles";
 
-import { peer, socket } from "../../utils";
+import { colorHash, peer, socket } from "../../utils";
 
 import { useSocketContext } from "../../hooks/useSocketContext";
 
@@ -116,9 +116,11 @@ const Call = (): JSX.Element => {
           {!call.isVideo && (
             <div className={classes.avatar}>
               <Avatar
+                variant="solid"
                 style={{ fontSize: "50px", paddingTop: "15px" }}
                 sx={{
                   "--Avatar-size": "120px",
+                  backgroundColor: colorHash.hex(call.from),
                 }}
               >
                 {call.name.charAt(0).toUpperCase()}

@@ -1,3 +1,4 @@
+import ColorHash from "color-hash";
 import io from "socket.io-client";
 import { Peer } from "peerjs";
 
@@ -6,3 +7,5 @@ export const socket = io(
 );
 
 export const peer = new Peer();
+
+export const colorHash = new ColorHash();
