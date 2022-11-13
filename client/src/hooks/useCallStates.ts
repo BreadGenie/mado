@@ -11,7 +11,6 @@ import {
   callEndedAtom,
   joinedRoomAtom,
   isCallerMutedAtom,
-  serverLoadingAtom,
 } from "../atoms";
 
 const useCallStates = () => {
@@ -25,7 +24,6 @@ const useCallStates = () => {
   const [callEnded, setCallEnded] = useRecoilState(callEndedAtom);
   const [joinedRoom, setJoinedRoom] = useRecoilState(joinedRoomAtom);
   const [isCallerMuted, setIsCallerMuted] = useRecoilState(isCallerMutedAtom);
-  const [serverLoading, setServerLoading] = useRecoilState(serverLoadingAtom);
 
   return {
     me,
@@ -48,8 +46,6 @@ const useCallStates = () => {
     setJoinedRoom,
     isCallerMuted,
     setIsCallerMuted,
-    serverLoading,
-    setServerLoading,
   };
 };
 

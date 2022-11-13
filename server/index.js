@@ -15,7 +15,7 @@ app.get("/", function (req, res) {
 });
 
 io.on("connection", (socket) => {
-  socket.emit("connection");
+  socket.emit("connection", socket.id);
   socket.on("join-room", (roomId, userId) => {
     socket.emit("joined-room");
     socket.join(roomId);

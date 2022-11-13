@@ -27,7 +27,6 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
     roomName,
     joinedRoom,
     setJoinedRoom,
-    serverLoading,
   } = useCallStates();
 
   const { myVideo, userVideo, callRef } = useSocketContext();
@@ -65,7 +64,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
 
   return (
     <>
-      {serverLoading && (
+      {!me && (
         <Paper className={classes.paper} elevation={10}>
           <Typography gutterBottom level="h6">
             Server Starting...
@@ -101,7 +100,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
               <LoadingButton
                 size="large"
                 loadingPosition="start"
-                loading={serverLoading}
+                loading={!me}
                 aria-label="Join the Room"
                 variant="contained"
                 color="primary"
@@ -120,7 +119,7 @@ const Options = ({ roomId }: { roomId: string }): JSX.Element => {
               <LoadingButton
                 size="large"
                 loadingPosition="start"
-                loading={serverLoading}
+                loading={!me}
                 color="primary"
                 variant="contained"
                 aria-label="Copy Room Link"

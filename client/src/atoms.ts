@@ -12,11 +12,6 @@ const randomRoomName = uniqueNamesGenerator({
   style: "capital",
 });
 
-export const serverLoadingAtom = atom({
-  key: "serverLoading",
-  default: true,
-});
-
 export const streamAtom: RecoilState<MediaStream | undefined> = atom({
   key: "stream",
   default: undefined,

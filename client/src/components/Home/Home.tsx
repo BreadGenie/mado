@@ -19,7 +19,7 @@ const Home = (): JSX.Element => {
 
   const { myVideo } = useSocketContext();
 
-  const { setMe, setStream, setServerLoading } = useCallStates();
+  const { setMe, setStream } = useCallStates();
 
   useEffect(() => {
     navigator.mediaDevices
@@ -34,13 +34,7 @@ const Home = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  socket.on("connection", () => setServerLoading(false));
-
   peer.on("open", (myId) => setMe(myId));
-
-  peer.on("error", (err) => {
-    console.log("Error: ", err);
-  });
 
   return (
     <>
